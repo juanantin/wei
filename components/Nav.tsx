@@ -43,7 +43,7 @@ export function Nav({ ticker, buyUrl }: { ticker: string; buyUrl: string }) {
             >
               Buy ${ticker}
             </a>
-            <span className="font-mono text-[0.56rem] leading-none tracking-[0.12em] text-accent uppercase">Earn $ETH</span>
+            <span className="font-mono text-[0.66rem] leading-none font-semibold tracking-[0.12em] text-accent uppercase">Earn $ETH</span>
           </div>
         </nav>
 
@@ -76,7 +76,7 @@ export function Nav({ ticker, buyUrl }: { ticker: string; buyUrl: string }) {
             >
               Buy ${ticker}
             </a>
-            <span className="mt-2 text-center font-mono text-[0.62rem] tracking-[0.12em] text-accent uppercase">Earn $ETH</span>
+            <span className="mt-2 text-center font-mono text-[0.75rem] font-semibold tracking-[0.12em] text-accent uppercase">Earn $ETH</span>
           </div>
         </nav>
       )}

@@ -64,7 +64,7 @@ export function Buy({ address, ticker, links }: { address: string; ticker: strin
             >
               Buy ${ticker}
             </a>
-            <span className="font-mono text-[0.62rem] tracking-[0.12em] text-ink/90 uppercase">Earn $ETH</span>
+            <span className="font-mono text-[0.8rem] font-semibold tracking-[0.12em] text-ink uppercase">Earn $ETH</span>
           </div>
           {[
             { href: links.chart, label: "Chart" },

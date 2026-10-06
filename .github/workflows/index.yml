@@ -20,9 +20,12 @@ concurrency:
 jobs:
   index:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 58
     steps:
+      # Always start from the latest committed state, even when this run was queued.
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -32,6 +35,7 @@ jobs:
       - name: Chain
         env:
           RPC_URL: ${{ secrets.RPC_URL }}
+          TIME_BUDGET_MS: "3000000"
         run: node scripts/index-rewards.mjs
       - name: Reconcile
         if: always()

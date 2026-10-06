@@ -34,14 +34,17 @@ export function Nav({ ticker, buyUrl }: { ticker: string; buyUrl: string }) {
               {l.label}
             </a>
           ))}
-          <a
-            href={buyUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="label rounded-[3px] bg-accent px-5 py-3 text-[0.7rem] font-semibold text-bg transition hover:brightness-110"
-          >
-            Buy ${ticker} · Earn $ETH
-          </a>
+          <div className="flex flex-col items-center gap-1">
+            <a
+              href={buyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="label rounded-[3px] bg-accent px-5 py-2.5 text-[0.7rem] font-semibold text-bg transition hover:brightness-110"
+            >
+              Buy ${ticker}
+            </a>
+            <span className="font-mono text-[0.56rem] leading-none tracking-[0.12em] text-accent uppercase">Earn $ETH</span>
+          </div>
         </nav>
 
         <button
@@ -71,8 +74,9 @@ export function Nav({ ticker, buyUrl }: { ticker: string; buyUrl: string }) {
               rel="noopener noreferrer"
               className="label mt-3 rounded-[3px] bg-accent px-5 py-3 text-center font-semibold text-bg"
             >
-              Buy ${ticker} · Earn $ETH
+              Buy ${ticker}
             </a>
+            <span className="mt-2 text-center font-mono text-[0.62rem] tracking-[0.12em] text-accent uppercase">Earn $ETH</span>
           </div>
         </nav>
       )}

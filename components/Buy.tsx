@@ -54,15 +54,18 @@ export function Buy({ address, ticker, links }: { address: string; ticker: strin
           {copied ? "Contract address copied" : ""}
         </span>
 
-        <div className="mt-5 flex flex-wrap justify-center gap-3">
-          <a
-            href={links.buy}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center rounded-[3px] bg-accent px-6 py-3.5 text-[0.95rem] font-semibold text-bg transition hover:brightness-110"
-          >
-            Buy ${ticker} · Earn $ETH
-          </a>
+        <div className="mt-5 flex flex-wrap items-start justify-center gap-3">
+          <div className="flex flex-col items-center gap-1.5">
+            <a
+              href={links.buy}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center rounded-[3px] bg-accent px-6 py-3.5 text-[0.95rem] font-semibold text-bg transition hover:brightness-110"
+            >
+              Buy ${ticker}
+            </a>
+            <span className="font-mono text-[0.62rem] tracking-[0.12em] text-ink/90 uppercase">Earn $ETH</span>
+          </div>
           {[
             { href: links.chart, label: "Chart" },
             { href: links.index, label: "Index" },

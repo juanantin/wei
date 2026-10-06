@@ -3,8 +3,8 @@
   "pool": "0xf9eb54a57310e92eb241364b1b1b569de4a838f2",
   "film": {
     "poster": "/wei-assets/film-poster.jpg",
-    "video_url": "",
-    "runtime": "1:47"
+    "video_url": "/episodes/film.mp4",
+    "runtime": "1:38"
   },
   "links": {
     "buy": "https://app.uniswap.org/swap?chain=base&inputCurrency=NATIVE&outputCurrency=0xd47Bdd392deF5eEBD46A1d8ebb234D28A2087321",

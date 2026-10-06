@@ -2,9 +2,9 @@ import { Dust } from "./Dust";
 import { HeroVideo } from "./HeroVideo";
 import { HeroBadges } from "./Partners";
 
-export function Hero({ incoming, links }: { incoming: number | null; links: { launch: string; index: string } }) {
+export function Hero({ links }: { links: { launch: string; index: string } }) {
   return (
-    <section id="top" className="relative isolate flex min-h-[640px] items-center overflow-hidden md:min-h-[760px]">
+    <section id="top" className="relative isolate flex min-h-[640px] items-start overflow-hidden md:min-h-[760px]">
       <div className="absolute inset-0 -z-20 overflow-hidden">
         <HeroVideo />
       </div>
@@ -17,18 +17,9 @@ export function Hero({ incoming, links }: { incoming: number | null; links: { la
         <HeroBadges links={links} />
       </div>
 
-      <div className="container-x pb-24 pt-32 md:pt-36">
+      <div className="container-x pb-24 pt-20 md:pt-24">
         <div className="max-w-[620px]">
-          <div
-            className="anim-fade flicker label inline-flex items-center gap-2.5 rounded-[3px] border border-ink/15 bg-bg/70 px-3.5 py-2 text-[0.68rem] text-ink/90 backdrop-blur-sm"
-            style={{ "--d": "100ms" } as React.CSSProperties}
-          >
-            <span className="pulse-dot size-1.5 rounded-full bg-[#ff4d3d]" />
-            Transmission live
-            {incoming !== null && <> · Episode {String(incoming).padStart(2, "0")} incoming</>}
-          </div>
-
-          <h1 className="title mt-6 inline-flex flex-col items-center tracking-[-0.02em]">
+          <h1 className="title inline-flex flex-col items-center tracking-[-0.02em]">
             <span className="anim-rise block text-[clamp(7.5rem,24vw,17rem)] leading-[0.8]" style={{ "--d": "250ms" } as React.CSSProperties}>
               Wei
             </span>

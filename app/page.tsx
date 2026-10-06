@@ -18,13 +18,12 @@ const episodes = episodesData as Episode[];
 export default function Home() {
   const ticker = config.tokenSymbol;
   const sorted = [...episodes].sort((a, b) => a.number - b.number);
-  const nextLocked = sorted.find((e) => e.locked);
 
   return (
     <StatsProvider>
       <Nav ticker={ticker} buyUrl={site.links.buy} xUrl={site.links.x} chartUrl={site.links.chart} />
       <main>
-        <Hero incoming={nextLocked?.number ?? null} links={site.links} />
+        <Hero links={site.links} />
         <Lore tweetUrl={site.lore_tweet} />
         <Dashboard indexUrl={site.links.index} />
         <Tech contract={config.tokenAddress} indexUrl={site.links.index} />

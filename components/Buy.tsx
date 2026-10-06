@@ -36,10 +36,10 @@ export function Buy({ address, ticker, links }: { address: string; ticker: strin
 
       <div className="container-x flex flex-col items-center text-center">
         <Reveal>
-          <h2 className="title text-[clamp(3.5rem,9vw,6.5rem)]">Keep Wei alive</h2>
+          <h2 className="title text-[clamp(3.5rem,9vw,6.5rem)]">Join the family</h2>
         </Reveal>
         <Reveal delay={120}>
-          <p className="mt-4 text-lg text-ink/90">Every holder is one more light on the node racks.</p>
+          <p className="mt-4 text-lg text-ink/90">Hold $WEI and the ETH comes home to you.</p>
         </Reveal>
 
         <Reveal delay={220} className="mt-9 flex w-full max-w-[560px] justify-center">

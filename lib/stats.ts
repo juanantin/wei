@@ -75,6 +75,7 @@ async function getPanel(): Promise<{ figures: PanelFigures; at: number }> {
 type Rewards = {
   synced: boolean;
   holders: number | null;
+  holdersAboveMin: number | null;
   lastPayout: { time: number | null } | null;
 };
 
@@ -99,6 +100,7 @@ export async function getStats(): Promise<Stats> {
 
   // A zero holder count means "not indexed yet", never "no holders".
   const holders = rewards?.synced && rewards.holders ? rewards.holders : null;
+  const holdersEligible = holders && rewards?.holdersAboveMin ? rewards.holdersAboveMin : null;
 
   // The chain timestamp is exact, but only once the fold has reached the chain head.
   let lastPayoutAt = rewards?.synced ? (rewards.lastPayout?.time ?? null) : null;
@@ -115,6 +117,7 @@ export async function getStats(): Promise<Stats> {
     txns24h: txns,
     vitality,
     holders,
+    holdersEligible,
     rewardSymbol: f?.rewardSymbol ?? null,
     feesCollected: f?.feesCollected ?? null,
     feesCollectedUsd: f?.feesCollectedUsd ?? null,

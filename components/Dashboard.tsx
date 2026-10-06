@@ -54,7 +54,11 @@ export function Dashboard({ indexUrl }: { indexUrl?: string }) {
             source={<>DexScreener{s?.priceUsd != null && <> · {usdPrice(s.priceUsd)}</>}</>}
           />
           <Card label="24h volume" value={usdCompact(s?.volume24h)} source="DexScreener" />
-          <Card label="Holders" value={int(s?.holders)} source="Base chain" />
+          <Card
+            label="Holders"
+            value={int(s?.holders)}
+            source={<>Base chain{s?.holdersEligible != null && <> · {int(s.holdersEligible)} earning</>}</>}
+          />
           <Card
             label="Fees collected"
             value={s?.feesCollected != null ? <>{eth(s.feesCollected)} {s.rewardSymbol}</> : DASH}

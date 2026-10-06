@@ -3,13 +3,13 @@
 // ephemeral):
 //   1. WEI  Transfer               → per-wallet balances → holder count
 //   2. WETH Transfer  to   INDEX   → fees collected
-//   3. WETH Transfer  from INDEX   → split by recipient: an address holding WEI
-//      at that point is a holder payout; anything else (e.g. the protocol's cut)
-//      is tallied per recipient and never counted as paid to holders.
+//   3. WETH Transfer  from INDEX   → paid to holders = every outflow except the
+//      protocol's cut (PROTOCOL_RECIPIENT). Outflows are also tallied per
+//      non-holder recipient so a new non-holder destination shows up in the log.
 // Writes data/rewards.json. Refuses to run while config MISSING is non-empty.
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
 import { rpc, sleep, fmtUnits } from "./lib.mjs";
-import { MISSING, TOKEN, TOKEN_DECIMALS, POOL, INDEX, REWARD_TOKEN, REWARD_DECIMALS, START_BLOCK } from "./config.mjs";
+import { MISSING, TOKEN, TOKEN_DECIMALS, POOL, INDEX, REWARD_TOKEN, REWARD_DECIMALS, PROTOCOL_RECIPIENT, START_BLOCK } from "./config.mjs";
 
 if (MISSING.length) {
   console.error(`Refusing to run: config is missing ${MISSING.join(", ")}. Fill it from the network first.`);
@@ -127,6 +127,10 @@ if (state.lastPayoutBlock) {
   const b = await rpc("eth_getBlockByNumber", ["0x" + state.lastPayoutBlock.toString(16), false]);
   lastPayoutTime = Number(BigInt(b.timestamp)) * 1000;
 }
+// Wallets that sold after a round's snapshot still received that round, so the
+// "holds WEI now" split undercounts holders; only the protocol's cut is excluded.
+const protocolOut = otherByRecipient.get(PROTOCOL_RECIPIENT) ?? 0n;
+const holderPaid = paidOut + otherOut - protocolOut;
 const result = {
   updatedAt: new Date().toISOString(),
   synced,
@@ -136,9 +140,11 @@ const result = {
   holders: synced ? holders.length : null,
   holdersAboveMin: synced ? holders.filter(([, v]) => v >= MIN_HOLDING_RAW).length : null,
   feesCollected: Number(fmtUnits(feesIn.toString(), REWARD_DECIMALS)),
-  paidToHolders: Number(fmtUnits(paidOut.toString(), REWARD_DECIMALS)),
+  paidToHolders: Number(fmtUnits(holderPaid.toString(), REWARD_DECIMALS)),
+  protocolCut: Number(fmtUnits(protocolOut.toString(), REWARD_DECIMALS)),
   // Measured share of fees that reached holders (do not assume the panel's %).
-  holderShare: feesIn > 0n ? Number((paidOut * 1_000_000n) / feesIn) / 1_000_000 : null,
+  holderShare: feesIn > 0n ? Number((holderPaid * 1_000_000n) / feesIn) / 1_000_000 : null,
+  protocolShare: feesIn > 0n ? Number((protocolOut * 1_000_000n) / feesIn) / 1_000_000 : null,
   otherOut: Number(fmtUnits(otherOut.toString(), REWARD_DECIMALS)),
   otherOutByRecipient: Object.fromEntries(
     [...otherByRecipient].sort((a, b) => (b[1] > a[1] ? 1 : -1)).slice(0, 10).map(([k, v]) => [k, Number(fmtUnits(v.toString(), REWARD_DECIMALS))]),

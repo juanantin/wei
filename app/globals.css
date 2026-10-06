@@ -63,3 +63,146 @@ body {
 .pulse-dot {
   animation: pulse-dot 1.6s ease-in-out infinite;
 }
+
+/* ───────────── Motion ───────────── */
+
+/* Scroll reveal. Hidden only when JS is running (html.js), so no-JS still shows everything. */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  filter: blur(4px);
+  transition:
+    opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1),
+    filter 0.8s ease;
+  transition-delay: var(--d, 0ms);
+}
+.js .reveal[data-shown] {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+/* Hero entrance */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(0.35em) skewY(3deg); filter: blur(6px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+.anim-rise {
+  opacity: 0;
+  animation: rise 1s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+  animation-delay: var(--d, 0ms);
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.anim-fade {
+  opacity: 0;
+  animation: fade-in 1.2s ease forwards;
+  animation-delay: var(--d, 0ms);
+}
+
+/* Hero background: zoom out on load, then a slow drift */
+@keyframes kenburns {
+  0% { transform: scale(1.12); }
+  18% { transform: scale(1.02); }
+  100% { transform: scale(1.07) translate3d(-1%, -1%, 0); }
+}
+.anim-kenburns {
+  animation: kenburns 40s cubic-bezier(0.2, 0.6, 0.3, 1) forwards;
+  transform-origin: 60% 50%;
+}
+
+/* Orange buttons: a light sweep on hover */
+.btn-sheen {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.btn-sheen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(110deg, transparent 30%, rgb(255 255 255 / 0.45) 50%, transparent 70%);
+  transform: translateX(-120%);
+}
+.btn-sheen:hover::after {
+  transition: transform 0.7s ease;
+  transform: translateX(120%);
+}
+
+/* Cards lift and catch the light */
+.card-glow {
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+.card-glow:hover {
+  transform: translateY(-3px);
+  border-color: rgb(232 100 44 / 0.45);
+  box-shadow: 0 18px 40px -20px rgb(232 100 44 / 0.45);
+}
+
+/* Vitality bar shimmer */
+@keyframes shimmer {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(250%); }
+}
+.shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.55), transparent);
+  animation: shimmer 2.6s ease-in-out infinite;
+}
+
+/* Mars → Earth beam */
+@keyframes beam {
+  from { left: 0%; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  to { left: 100%; opacity: 0; }
+}
+.beam-pulse {
+  position: absolute;
+  top: 50%;
+  width: 90px;
+  height: 3px;
+  margin-top: -1.5px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, var(--color-glow));
+  box-shadow: 0 0 14px 2px rgb(111 168 255 / 0.7);
+  animation: beam 3.2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  animation-delay: var(--d, 0ms);
+}
+
+/* Blinking caret for "Confirmed" */
+@keyframes caret {
+  50% { opacity: 0; }
+}
+.caret::after {
+  content: "_";
+  margin-left: 0.1em;
+  animation: caret 1s steps(1) infinite;
+}
+
+/* Signal flicker on the live badge */
+@keyframes flicker {
+  0%, 92%, 100% { opacity: 1; }
+  93% { opacity: 0.4; }
+  95% { opacity: 0.9; }
+  96% { opacity: 0.3; }
+}
+.flicker {
+  animation: flicker 6s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js .reveal { opacity: 1; transform: none; filter: none; transition: none; }
+  .anim-rise, .anim-fade { opacity: 1; animation: none; }
+  .anim-kenburns, .shimmer::after, .beam-pulse, .caret::after, .flicker, .pulse-dot { animation: none; }
+  .btn-sheen::after { display: none; }
+  .card-glow:hover { transform: none; }
+}

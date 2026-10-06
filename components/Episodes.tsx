@@ -1,5 +1,9 @@
 "use client";
 
+import { Reveal } from "./Reveal";
+
+import { Decode } from "./Decode";
+
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import type { Episode } from "@/lib/types";
@@ -17,9 +21,9 @@ function isLocked(ep: Episode, holders: number | null) {
 
 function LockedCard({ ep }: { ep: Episode }) {
   return (
-    <div className="flex flex-col overflow-hidden rounded-[4px] border border-dashed border-ink/15 bg-card/40">
+    <div className="flex w-full flex-col overflow-hidden rounded-[4px] border border-dashed border-ink/15 bg-card/40">
       <div className="relative flex aspect-[16/9] flex-col items-center justify-center gap-3 bg-[repeating-linear-gradient(0deg,rgba(245,233,222,0.025)_0_1px,transparent_1px_4px)]">
-        <svg width="22" height="24" viewBox="0 0 22 24" fill="none" aria-hidden className="text-accent/80">
+        <svg width="22" height="24" viewBox="0 0 22 24" fill="none" aria-hidden className="pulse-dot text-accent/80">
           <rect x="2" y="10" width="18" height="12" rx="2" stroke="currentColor" strokeWidth="1.6" />
           <path d="M6 10V7a5 5 0 0 1 10 0v3" stroke="currentColor" strokeWidth="1.6" />
         </svg>
@@ -41,7 +45,7 @@ function EpisodeCard({ ep, onPlay }: { ep: Episode; onPlay: () => void }) {
     <button
       type="button"
       onClick={onPlay}
-      className="group flex flex-col overflow-hidden rounded-[4px] border border-line bg-panel text-left transition hover:border-accent/50"
+      className="card-glow group flex w-full flex-col overflow-hidden rounded-[4px] border border-line bg-panel text-left"
     >
       <div className="relative aspect-[16/9] overflow-hidden">
         <Image
@@ -97,19 +101,25 @@ export function Episodes({ episodes }: { episodes: Episode[] }) {
   return (
     <section id="episodes" className="py-24 md:py-32">
       <div className="container-x">
-        <p className="label text-accent">Transmissions from Mars</p>
-        <h2 className="title mt-5 text-[clamp(3rem,6.5vw,5.25rem)]">Episodes</h2>
+        <p className="label text-accent">
+              <Decode text="Transmissions from Mars" />
+            </p>
+        <Reveal>
+          <h2 className="title mt-5 text-[clamp(3rem,6.5vw,5.25rem)]">Episodes</h2>
+        </Reveal>
 
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[...episodes]
             .sort((a, b) => a.number - b.number)
-            .map((ep) =>
-              isLocked(ep, holders) ? (
-                <LockedCard key={ep.number} ep={ep} />
-              ) : (
-                <EpisodeCard key={ep.number} ep={ep} onPlay={() => setPlaying(ep)} />
-              ),
-            )}
+            .map((ep, i) => (
+              <Reveal key={ep.number} delay={i * 110} className="flex">
+                {isLocked(ep, holders) ? (
+                  <LockedCard ep={ep} />
+                ) : (
+                  <EpisodeCard ep={ep} onPlay={() => setPlaying(ep)} />
+                )}
+              </Reveal>
+            ))}
         </div>
       </div>
 

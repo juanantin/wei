@@ -24,7 +24,11 @@ export const viewport: Viewport = { themeColor: "#120A07" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${display.variable} ${mono.variable} ${sans.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${display.variable} ${mono.variable} ${sans.variable}`}>
+      <head>
+        {/* Lets CSS hide scroll-reveal elements only when JS will reveal them. */}
+        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+      </head>
       <body>{children}</body>
     </html>
   );

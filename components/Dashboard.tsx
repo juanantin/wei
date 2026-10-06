@@ -1,5 +1,11 @@
 "use client";
 
+import { CountUp } from "./CountUp";
+
+import { Reveal } from "./Reveal";
+
+import { Decode } from "./Decode";
+
 import Image from "next/image";
 import { useStats } from "./StatsProvider";
 import { DASH, eth, int, timeAgo, usdCompact, usdPrice } from "@/lib/format";
@@ -9,14 +15,17 @@ function Card({
   value,
   source,
   valueClass = "text-ink",
+  i = 0,
 }: {
   label: string;
   value: React.ReactNode;
   source: React.ReactNode;
   valueClass?: string;
+  i?: number;
 }) {
   return (
-    <div className="flex min-w-0 flex-col rounded-[4px] border border-line bg-card p-5 md:p-6">
+    <Reveal delay={i * 70} className="flex min-w-0">
+    <div className="card-glow flex w-full min-w-0 flex-col rounded-[4px] border border-line bg-card p-5 md:p-6">
       <p className="label text-[0.66rem] text-muted">{label}</p>
       <p
         className={`mt-4 break-words font-mono text-[clamp(1.5rem,2.6vw,2.15rem)] font-semibold leading-[1.15] ${valueClass}`}
@@ -25,6 +34,7 @@ function Card({
       </p>
       <p className="mt-3 font-mono text-[0.7rem] text-muted">{source}</p>
     </div>
+    </Reveal>
   );
 }
 
@@ -38,8 +48,12 @@ export function Dashboard({ indexUrl }: { indexUrl?: string }) {
       <div className="container-x">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
-            <p className="label text-accent">Habitat telemetry</p>
-            <h2 className="title mt-5 text-[clamp(3rem,6.5vw,5.25rem)]">Mission control</h2>
+            <p className="label text-accent">
+              <Decode text="Habitat telemetry" />
+            </p>
+            <Reveal>
+              <h2 className="title mt-5 text-[clamp(3rem,6.5vw,5.25rem)]">Mission control</h2>
+            </Reveal>
           </div>
           <p className="flex items-center gap-2 font-mono text-[0.72rem] text-ink/75 md:mb-3">
             <span className="pulse-dot size-1.5 rounded-full bg-ok" />
@@ -48,20 +62,20 @@ export function Dashboard({ indexUrl }: { indexUrl?: string }) {
         </div>
 
         <div className="mt-12 grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
-          <Card
+          <Card i={0}
             label="Market cap"
-            value={usdCompact(s?.marketCap)}
+            value={<CountUp value={s?.marketCap} format={usdCompact} />}
             source={<>DexScreener{s?.priceUsd != null && <> · {usdPrice(s.priceUsd)}</>}</>}
           />
-          <Card label="24h volume" value={usdCompact(s?.volume24h)} source="DexScreener" />
-          <Card
+          <Card i={1} label="24h volume" value={<CountUp value={s?.volume24h} format={usdCompact} />} source="DexScreener" />
+          <Card i={2}
             label="Holders"
-            value={int(s?.holders)}
+            value={<CountUp value={s?.holders} format={(n) => int(Math.round(n))} />}
             source={<>Base chain{s?.holdersEligible != null && <> · {int(s.holdersEligible)} earning</>}</>}
           />
-          <Card
+          <Card i={3}
             label="Fees collected"
-            value={s?.feesCollected != null ? <>{eth(s.feesCollected)} {s.rewardSymbol}</> : DASH}
+            value={s?.feesCollected != null ? <><CountUp value={s.feesCollected} format={eth} /> {s.rewardSymbol}</> : DASH}
             source={
               <>
                 {s?.feesCollectedUsd != null && <>{usdCompact(s.feesCollectedUsd)} · </>}
@@ -75,9 +89,9 @@ export function Dashboard({ indexUrl }: { indexUrl?: string }) {
               </>
             }
           />
-          <Card
+          <Card i={4}
             label="ETH sent home"
-            value={s?.paidToHolders != null ? <>{eth(s.paidToHolders)} {s.rewardSymbol}</> : DASH}
+            value={s?.paidToHolders != null ? <><CountUp value={s.paidToHolders} format={eth} /> {s.rewardSymbol}</> : DASH}
             valueClass="text-glow"
             source={
               <>
@@ -86,16 +100,17 @@ export function Dashboard({ indexUrl }: { indexUrl?: string }) {
               </>
             }
           />
-          <Card label="Payout rounds" value={int(s?.rounds)} source="Transfers home · every 15 min at the earliest" />
-          <Card
+          <Card i={5} label="Payout rounds" value={<CountUp value={s?.rounds} format={(n) => int(Math.round(n))} />} source="Transfers home · every 15 min at the earliest" />
+          <Card i={6}
             label="Last transfer"
-            value={s?.lastPayoutAt ? "Confirmed" : DASH}
+            value={s?.lastPayoutAt ? <span className="caret">Confirmed</span> : DASH}
             valueClass="text-ok text-[clamp(1.1rem,1.6vw,1.35rem)]!"
             source={<>{timeAgo(s?.lastPayoutAt)} · Mars → Earth</>}
           />
         </div>
 
-        <div className="mt-3 flex flex-col gap-5 rounded-[4px] border border-line bg-card p-5 sm:flex-row sm:items-center md:mt-4 md:gap-7 md:p-6">
+        <Reveal delay={150} className="mt-3 md:mt-4">
+        <div className="card-glow flex flex-col gap-5 rounded-[4px] border border-line bg-card p-5 sm:flex-row sm:items-center md:gap-7 md:p-6">
           <Image
             src="/wei-assets/wei-logo.png"
             alt="Wei"
@@ -120,7 +135,7 @@ export function Dashboard({ indexUrl }: { indexUrl?: string }) {
               aria-valuenow={vitality === null ? undefined : Math.round(vitality)}
             >
               <div
-                className="h-full rounded-full bg-glow shadow-[0_0_12px_rgba(111,168,255,0.7)] transition-[width] duration-1000"
+                className={`relative h-full overflow-hidden rounded-full bg-glow shadow-[0_0_12px_rgba(111,168,255,0.7)] transition-[width] duration-[1600ms] ease-out ${vitality ? "shimmer" : ""}`}
                 style={{ width: `${vitality ?? 0}%` }}
               />
             </div>
@@ -130,6 +145,7 @@ export function Dashboard({ indexUrl }: { indexUrl?: string }) {
             </p>
           </div>
         </div>
+        </Reveal>
       </div>
     </section>
   );

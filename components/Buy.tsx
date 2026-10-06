@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { Reveal } from "./Reveal";
 
 type Links = { buy: string; chart: string; x: string; telegram: string; index?: string };
 
@@ -30,14 +31,19 @@ export function Buy({ address, ticker, links }: { address: string; ticker: strin
 
   return (
     <section id="buy" className="relative isolate overflow-hidden py-28 md:py-40">
-      <Image src="/wei-assets/hero-wide.jpg" alt="" fill sizes="100vw" className="-z-20 object-cover object-[center_40%]" />
+      <Image src="/wei-assets/hero-wide.jpg" alt="" fill sizes="100vw" className="anim-kenburns -z-20 object-cover object-[center_40%]" />
       <div className="absolute inset-0 -z-10 bg-bg/35" />
 
       <div className="container-x flex flex-col items-center text-center">
-        <h2 className="title text-[clamp(3.5rem,9vw,6.5rem)]">Keep Wei alive</h2>
-        <p className="mt-4 text-lg text-ink/90">Every holder is one more light on the node racks.</p>
+        <Reveal>
+          <h2 className="title text-[clamp(3.5rem,9vw,6.5rem)]">Keep Wei alive</h2>
+        </Reveal>
+        <Reveal delay={120}>
+          <p className="mt-4 text-lg text-ink/90">Every holder is one more light on the node racks.</p>
+        </Reveal>
 
-        <div className="mt-9 flex w-full max-w-[560px] items-stretch overflow-hidden rounded-[3px] border border-ink/25 bg-bg/85">
+        <Reveal delay={220} className="mt-9 flex w-full max-w-[560px] justify-center">
+        <div className="flex w-full items-stretch overflow-hidden rounded-[3px] border border-ink/25 bg-bg/85">
           <code className="min-w-0 flex-1 truncate px-4 py-3.5 text-left font-mono text-[0.8rem] text-ink/90 sm:text-center sm:text-[0.85rem]">
             {address || "[CONTRACT ADDRESS]"}
           </code>
@@ -50,17 +56,18 @@ export function Buy({ address, ticker, links }: { address: string; ticker: strin
             {copied ? "Copied" : "Copy"}
           </button>
         </div>
+        </Reveal>
         <span className="sr-only" aria-live="polite">
           {copied ? "Contract address copied" : ""}
         </span>
 
-        <div className="mt-5 flex flex-wrap items-start justify-center gap-3">
+        <Reveal delay={320} className="mt-5 flex flex-wrap items-start justify-center gap-3">
           <div className="flex flex-col items-center gap-1.5">
             <a
               href={links.buy}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center rounded-[3px] bg-accent px-6 py-3.5 text-[0.95rem] font-semibold text-bg transition hover:brightness-110"
+              className="inline-flex items-center btn-sheen rounded-[3px] bg-accent px-6 py-3.5 text-[0.95rem] font-semibold text-bg transition hover:brightness-110"
             >
               Buy ${ticker}
             </a>
@@ -78,7 +85,7 @@ export function Buy({ address, ticker, links }: { address: string; ticker: strin
                 {l.label}
               </a>
             ))}
-        </div>
+        </Reveal>
       </div>
     </section>
   );

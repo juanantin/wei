@@ -1,3 +1,5 @@
+import { Reveal } from "./Reveal";
+import { Decode } from "./Decode";
 const STEPS = [
   {
     n: "01",
@@ -40,18 +42,34 @@ export function Tech({ contract, indexUrl }: { contract: string; indexUrl: strin
       <div className="container-x">
         <div className="grid gap-8 lg:grid-cols-[1fr_minmax(0,520px)] lg:items-end">
           <div>
-            <p className="label text-accent">Life support</p>
-            <h2 className="title mt-5 text-[clamp(3rem,6.5vw,5.25rem)]">The tech</h2>
+            <p className="label text-accent">
+              <Decode text="Life support" />
+            </p>
+            <Reveal>
+              <h2 className="title mt-5 text-[clamp(3rem,6.5vw,5.25rem)]">The tech</h2>
+            </Reveal>
           </div>
+          <Reveal delay={120}>
           <p className="text-lg leading-relaxed text-ink/85">
             Wei&apos;s colonist sends ETH home to his family. Hold $WEI and you&apos;re the family. Here&apos;s how the
             money makes it across 225 million kilometres.
           </p>
+          </Reveal>
         </div>
 
-        <ol className="mt-12 grid gap-3 md:grid-cols-2 lg:grid-cols-4 lg:gap-4">
-          {STEPS.map((s) => (
-            <li key={s.n} className="flex flex-col rounded-[4px] border border-line bg-card p-6">
+        {/* Mars → Earth beam */}
+        <Reveal delay={100} className="mt-12 flex items-center gap-4 font-mono text-[0.66rem] uppercase tracking-[0.18em]">
+          <span className="text-accent">Mars</span>
+          <div className="relative h-px flex-1 bg-gradient-to-r from-accent/60 via-ink/15 to-glow/60">
+            <span className="beam-pulse" />
+            <span className="beam-pulse" style={{ "--d": "1600ms" } as React.CSSProperties} />
+          </div>
+          <span className="text-glow">Earth</span>
+        </Reveal>
+
+        <ol className="mt-6 grid gap-3 md:grid-cols-2 lg:grid-cols-4 lg:gap-4">
+          {STEPS.map((s, i) => (
+            <Reveal as="li" key={s.n} delay={i * 110} className="card-glow flex flex-col rounded-[4px] border border-line bg-card p-6">
               <span className="font-mono text-[0.75rem] text-accent">{s.n}</span>
               <h3 className="title mt-4 text-[1.9rem] leading-[0.95]">{s.title}</h3>
               <p className="mt-4 text-[0.95rem] leading-relaxed text-ink/85">{s.story}</p>
@@ -59,7 +77,7 @@ export function Tech({ contract, indexUrl }: { contract: string; indexUrl: strin
                 <span className="text-glow">Under the hood · </span>
                 {s.hood}
               </p>
-            </li>
+            </Reveal>
           ))}
         </ol>
 

@@ -39,7 +39,7 @@ export function Nav({ ticker, buyUrl }: { ticker: string; buyUrl: string }) {
               href={buyUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="label rounded-[3px] bg-accent px-5 py-2.5 text-[0.7rem] font-semibold text-bg transition hover:brightness-110"
+              className="label btn-sheen rounded-[3px] bg-accent px-5 py-2.5 text-[0.7rem] font-semibold text-bg transition hover:brightness-110"
             >
               Buy ${ticker}
             </a>
@@ -72,7 +72,7 @@ export function Nav({ ticker, buyUrl }: { ticker: string; buyUrl: string }) {
               href={buyUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="label mt-3 rounded-[3px] bg-accent px-5 py-3 text-center font-semibold text-bg"
+              className="label mt-3 btn-sheen rounded-[3px] bg-accent px-5 py-3 text-center font-semibold text-bg"
             >
               Buy ${ticker}
             </a>

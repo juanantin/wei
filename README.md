@@ -14,7 +14,8 @@ npm run build && npm start   # production check
 - **Episodes**: `content/episodes.json`. Fields: `number`, `title`, `description`, `thumbnail`, `video_url`, `locked`, `unlock_at_holders`, plus the optional `duration` (e.g. `"0:45"`) and `new` (shows the NEW tag).
   - A `locked` episode shows **Signal incoming**. It unlocks automatically once the live holder count reaches `unlock_at_holders`. To unlock it by hand, set `locked: false`.
   - The hero badge ("Episode 0X incoming") points at the first locked episode.
-  - `video_url` accepts YouTube, Vimeo or a direct `.mp4`/`.webm` link.
+  - `video_url` accepts YouTube, Vimeo, a direct `.mp4`/`.webm` link, or a file in `public/episodes/` (e.g. `/episodes/ep01.mp4`). Remux new uploads with `ffmpeg -i in.mp4 -c copy -movflags +faststart public/episodes/epNN.mp4` so they start streaming immediately.
+  - The **full film** plays `film.video_url` from `content/site.json` if set; otherwise it plays every released episode back to back.
 - **Contract, film, links, tweet**: `content/site.json`. A link left empty hides its button.
 - **Images**: `public/wei-assets/`: `hero.jpg` (hero), `wei-logo.png` (logo, vitality avatar, favicon; source: `content/wei_image.png`), `tweet-fallback.jpg`, `ep01.jpg`…, `film-poster.jpg`, `hero-wide.jpg` (Keep Wei Alive background). To change an image, overwrite the file with the same name.
 

@@ -4,8 +4,24 @@ import Image from "next/image";
 import { useState } from "react";
 import { VideoEmbed } from "./VideoEmbed";
 
-export function FullFilm({ poster, videoUrl, runtime }: { poster: string; videoUrl: string; runtime: string }) {
+/**
+ * The full film. If site.json sets film.video_url, that plays; otherwise the
+ * released episodes play back to back as one cut.
+ */
+export function FullFilm({
+  poster,
+  videoUrl,
+  playlist,
+  runtime,
+}: {
+  poster: string;
+  videoUrl: string;
+  playlist: string[];
+  runtime: string;
+}) {
   const [playing, setPlaying] = useState(false);
+  const [part, setPart] = useState(0);
+  const hasVideo = Boolean(videoUrl) || playlist.length > 0;
 
   return (
     <section id="film" className="border-y border-line bg-panel py-24 md:py-32">
@@ -16,6 +32,17 @@ export function FullFilm({ poster, videoUrl, runtime }: { poster: string; videoU
         <div className="relative mt-12 aspect-video overflow-hidden rounded-[4px] border border-line bg-black">
           {playing && videoUrl ? (
             <VideoEmbed url={videoUrl} title="WEI THE DOG — The Full Film" />
+          ) : playing && playlist.length > 0 ? (
+            <video
+              key={playlist[part]}
+              src={playlist[part]}
+              title="WEI THE DOG — The Full Film"
+              controls
+              autoPlay
+              playsInline
+              onEnded={() => part + 1 < playlist.length && setPart(part + 1)}
+              className="absolute inset-0 size-full bg-black"
+            />
           ) : (
             <button
               type="button"
@@ -31,7 +58,7 @@ export function FullFilm({ poster, videoUrl, runtime }: { poster: string; videoU
                 </svg>
               </span>
               <span className="absolute bottom-4 left-4 font-mono text-[0.72rem] text-ink md:bottom-6 md:left-6 md:text-sm">
-                {playing && !videoUrl ? "Signal incoming" : <>All episodes, one cut · {runtime}</>}
+                {playing && !hasVideo ? "Signal incoming" : <>All episodes, one cut · {runtime}</>}
               </span>
             </button>
           )}

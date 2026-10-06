@@ -16,7 +16,8 @@ const episodes = episodesData as Episode[];
 
 export default function Home() {
   const ticker = config.tokenSymbol;
-  const nextLocked = [...episodes].sort((a, b) => a.number - b.number).find((e) => e.locked);
+  const sorted = [...episodes].sort((a, b) => a.number - b.number);
+  const nextLocked = sorted.find((e) => e.locked);
 
   return (
     <StatsProvider>
@@ -26,7 +27,12 @@ export default function Home() {
         <Lore tweetUrl={site.lore_tweet} />
         <Dashboard indexUrl={site.links.index} />
         <Episodes episodes={episodes} />
-        <FullFilm poster={site.film.poster} videoUrl={site.film.video_url} runtime={site.film.runtime} />
+        <FullFilm
+          poster={site.film.poster}
+          videoUrl={site.film.video_url}
+          playlist={sorted.filter((e) => !e.locked && e.video_url).map((e) => e.video_url)}
+          runtime={site.film.runtime}
+        />
         <Buy address={config.tokenAddress} ticker={ticker} links={site.links} />
       </main>
       <Footer />

@@ -14,6 +14,7 @@ on:
       - data/.index-trigger
 permissions:
   contents: write
+  actions: write # lets the fallback below start the next run
 concurrency:
   group: data-commit
   cancel-in-progress: false
@@ -62,3 +63,19 @@ jobs:
           git diff --cached --quiet && exit 0
           git commit -m "data: index snapshot [skip ci]"
           for i in 1 2 3; do git pull --rebase -q && git push && break; sleep 5; done
+      # Scheduled crons can be delayed for hours or dropped. If none has run in
+      # the last 30 min, start the next run ourselves after a short pause.
+      # (workflow_dispatch is the one event GITHUB_TOKEN may trigger.) Once the
+      # cron is firing, this stays dormant.
+      - name: Keep the chain alive
+        if: always() && github.event_name != 'schedule'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          last=$(gh run list -R "$GITHUB_REPOSITORY" -w index.yml -e schedule -L 1 --json createdAt -q '.[0].createdAt' || true)
+          if [ -n "$last" ] && [ $(( $(date +%s) - $(date -d "$last" +%s) )) -lt 1800 ]; then
+            echo "cron is alive (last scheduled run $last) — not chaining"; exit 0
+          fi
+          echo "no scheduled run in 30 min (last: ${last:-never}) — next run in 5 min"
+          sleep 300
+          gh workflow run index.yml -R "$GITHUB_REPOSITORY" --ref main

@@ -32,7 +32,7 @@ export function Hero({ incoming, links }: { incoming: number | null; links: { la
             <span className="anim-rise block text-[clamp(7.5rem,24vw,17rem)] leading-[0.8]" style={{ "--d": "250ms" } as React.CSSProperties}>
               Wei
             </span>
-            <span className="anim-rise -mt-1 block text-[clamp(3.6rem,10.5vw,7.6rem)] leading-[0.9] tracking-[0.01em]" style={{ "--d": "420ms" } as React.CSSProperties}>
+            <span className="anim-rise relative left-[0.1em] mt-3 block text-[clamp(3.6rem,10.5vw,7.6rem)] leading-[0.9] tracking-[0.01em]" style={{ "--d": "420ms" } as React.CSSProperties}>
               The Dog
             </span>
           </h1>

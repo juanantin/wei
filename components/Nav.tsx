@@ -62,7 +62,7 @@ export function Nav({
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line bg-bg/90 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-line bg-bg/55 backdrop-blur-md">
       <div className="container-x flex h-[72px] items-center justify-between">
         <a href="#top" className="flex items-center gap-3" onClick={() => setOpen(false)}>
           <Image

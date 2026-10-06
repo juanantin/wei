@@ -100,7 +100,8 @@ export async function getStats(): Promise<Stats> {
   // A zero holder count means "not indexed yet", never "no holders".
   const holders = rewards?.synced && rewards.holders ? rewards.holders : null;
 
-  let lastPayoutAt = rewards?.lastPayout?.time ?? null;
+  // The chain timestamp is exact, but only once the fold has reached the chain head.
+  let lastPayoutAt = rewards?.synced ? (rewards.lastPayout?.time ?? null) : null;
   if (!lastPayoutAt && panel?.figures.lastPayout) {
     const ago = agoToMs(panel.figures.lastPayout.agoValue, panel.figures.lastPayout.agoUnit);
     if (ago != null) lastPayoutAt = panel.at - ago;

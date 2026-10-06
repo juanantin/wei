@@ -17,7 +17,7 @@ npm run build && npm start   # production check
   - `video_url` accepts YouTube, Vimeo, a direct `.mp4`/`.webm` link, or a file in `public/episodes/` (e.g. `/episodes/ep01.mp4`). Remux new uploads with `ffmpeg -i in.mp4 -c copy -movflags +faststart public/episodes/epNN.mp4` so they start streaming immediately.
   - The **full film** plays `film.video_url` from `content/site.json` if set; otherwise it plays every released episode back to back.
 - **Contract, film, links, tweet**: `content/site.json`. A link left empty hides its button.
-- **Images**: `public/wei-assets/`: `hero.jpg` (hero), `wei-logo.png` (logo, vitality avatar, favicon; source: `content/wei_image.png`), `tweet-fallback.jpg`, `ep01.jpg`…, `film-poster.jpg`, `hero-wide.jpg` (Join the Family background). To change an image, overwrite the file with the same name.
+- **Images**: `public/wei-assets/`: `hero.mp4` + `hero-poster.jpg` (hero background loop; `hero.jpg` is the social-share image), `wei-logo.png` (logo, vitality avatar, favicon; source: `content/wei_image.png`), `tweet-fallback.jpg`, `ep01.jpg`…, `film-poster.jpg`, `hero-wide.jpg` (Join the Family background). To change an image, overwrite the file with the same name.
 
 ## Live dashboard
 

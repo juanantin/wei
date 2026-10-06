@@ -1,12 +1,12 @@
-import Image from "next/image";
 import { Dust } from "./Dust";
+import { HeroVideo } from "./HeroVideo";
 import { HeroBadges } from "./Partners";
 
 export function Hero({ incoming, links }: { incoming: number | null; links: { launch: string; index: string } }) {
   return (
     <section id="top" className="relative isolate flex min-h-[640px] items-center overflow-hidden md:min-h-[760px]">
       <div className="absolute inset-0 -z-20 overflow-hidden">
-        <Image src="/wei-assets/hero.jpg" alt="" fill priority sizes="100vw" className="anim-kenburns object-cover object-[60%_center] md:object-center" />
+        <HeroVideo />
       </div>
       <Dust />
       {/* readability gradients */}

@@ -46,7 +46,8 @@ jobs:
             row("paidToHolders", p.paidToHolders, r.paidToHolders);
             row("rounds", p.roundsPaid, r.rounds);
             row("walletPayments", p.walletPayments, r.walletPayments);
-            console.log("synced", r.synced, "holders", r.holders, "aboveMin", r.holdersAboveMin, "outOverIn", r.outOverIn);
+            console.log("synced", r.synced, "cursor", r.cursor, "head", r.head, "holders", r.holders, "aboveMin", r.holdersAboveMin, "holderShare", r.holderShare);
+            console.log("otherOut", r.otherOut, JSON.stringify(r.otherOutByRecipient));
           '
       - name: Commit
         if: always()

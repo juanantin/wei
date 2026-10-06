@@ -3,7 +3,9 @@
 // ephemeral):
 //   1. WEI  Transfer               → per-wallet balances → holder count
 //   2. WETH Transfer  to   INDEX   → fees collected
-//   3. WETH Transfer  from INDEX   → paid to holders, payout rounds, last payout
+//   3. WETH Transfer  from INDEX   → split by recipient: an address holding WEI
+//      at that point is a holder payout; anything else (e.g. the protocol's cut)
+//      is tallied per recipient and never counted as paid to holders.
 // Writes data/rewards.json. Refuses to run while config MISSING is non-empty.
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
 import { rpc, sleep, fmtUnits } from "./lib.mjs";
@@ -26,7 +28,7 @@ const MIN_HOLDING_RAW = BigInt(process.env.MIN_HOLDING || "10000") * 10n ** BigI
 
 // ---- state ----
 const fresh = {
-  cursor: START_BLOCK - 1, feesInRaw: "0", paidOutRaw: "0", feeTransfers: 0, payoutTransfers: 0,
+  cursor: START_BLOCK - 1, feesInRaw: "0", paidOutRaw: "0", otherOutRaw: "0", otherOut: {}, feeTransfers: 0, payoutTransfers: 0,
   rounds: 0, lastRoundTx: null, lastPayoutBlock: null, lastPayoutRaw: "0", lastPayoutHolders: 0,
   lastFeeBlock: null, balances: {},
 };
@@ -37,7 +39,8 @@ if (state.cursor < START_BLOCK - 1) {
   process.exit(1);
 }
 const bal = new Map(Object.entries(state.balances).map(([k, v]) => [k, BigInt(v)]));
-let feesIn = BigInt(state.feesInRaw), paidOut = BigInt(state.paidOutRaw);
+let feesIn = BigInt(state.feesInRaw), paidOut = BigInt(state.paidOutRaw), otherOut = BigInt(state.otherOutRaw);
+const otherByRecipient = new Map(Object.entries(state.otherOut).map(([k, v]) => [k, BigInt(v)]));
 
 async function logs(address, topics, from, to) {
   return rpc("eth_getLogs", [{ address, topics, fromBlock: "0x" + from.toString(16), toBlock: "0x" + to.toString(16) }], 3);
@@ -81,6 +84,12 @@ while (state.cursor < head && Date.now() - started < TIME_BUDGET_MS) {
   }
   for (const l of outLogs) {
     const v = BigInt(l.data);
+    const to = unpad(l.topics[2]);
+    if (!((bal.get(to) ?? 0n) > 0n) || to === POOL) {
+      otherOut += v;
+      otherByRecipient.set(to, (otherByRecipient.get(to) ?? 0n) + v);
+      continue;
+    }
     paidOut += v;
     state.payoutTransfers++;
     if (l.transactionHash !== lastRoundTx) {
@@ -103,6 +112,8 @@ while (state.cursor < head && Date.now() - started < TIME_BUDGET_MS) {
 state.lastRoundTx = lastRoundTx;
 state.feesInRaw = feesIn.toString();
 state.paidOutRaw = paidOut.toString();
+state.otherOutRaw = otherOut.toString();
+state.otherOut = Object.fromEntries([...otherByRecipient].map(([k, v]) => [k, v.toString()]));
 state.balances = Object.fromEntries([...bal].filter(([, v]) => v !== 0n).map(([k, v]) => [k, v.toString()]));
 mkdirSync("data", { recursive: true });
 writeFileSync(STATE, JSON.stringify(state) + "\n");
@@ -126,7 +137,12 @@ const result = {
   holdersAboveMin: synced ? holders.filter(([, v]) => v >= MIN_HOLDING_RAW).length : null,
   feesCollected: Number(fmtUnits(feesIn.toString(), REWARD_DECIMALS)),
   paidToHolders: Number(fmtUnits(paidOut.toString(), REWARD_DECIMALS)),
-  outOverIn: feesIn > 0n ? Number((paidOut * 1_000_000n) / feesIn) / 1_000_000 : null,
+  // Measured share of fees that reached holders (do not assume the panel's %).
+  holderShare: feesIn > 0n ? Number((paidOut * 1_000_000n) / feesIn) / 1_000_000 : null,
+  otherOut: Number(fmtUnits(otherOut.toString(), REWARD_DECIMALS)),
+  otherOutByRecipient: Object.fromEntries(
+    [...otherByRecipient].sort((a, b) => (b[1] > a[1] ? 1 : -1)).slice(0, 10).map(([k, v]) => [k, Number(fmtUnits(v.toString(), REWARD_DECIMALS))]),
+  ),
   rounds: state.rounds,
   walletPayments: state.payoutTransfers,
   lastPayout: state.lastPayoutBlock

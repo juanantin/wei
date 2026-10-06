@@ -1,13 +1,14 @@
 {
   "contract": "0xd47Bdd392deF5eEBD46A1d8ebb234D28A2087321",
+  "pool": "0xf9eb54a57310e92eb241364b1b1b569de4a838f2",
   "film": {
     "poster": "/wei-assets/film-poster.jpg",
     "video_url": "",
     "runtime": "[RUNTIME]"
   },
   "links": {
-    "buy": "https://dexscreener.com/search?q=0xd47Bdd392deF5eEBD46A1d8ebb234D28A2087321",
-    "chart": "https://dexscreener.com/search?q=0xd47Bdd392deF5eEBD46A1d8ebb234D28A2087321",
+    "buy": "https://app.uniswap.org/swap?chain=base&inputCurrency=NATIVE&outputCurrency=0xd47Bdd392deF5eEBD46A1d8ebb234D28A2087321",
+    "chart": "https://dexscreener.com/base/0xf9eb54a57310e92eb241364b1b1b569de4a838f2",
     "x": "https://x.com/Weithedog",
     "telegram": "",
     "index": "https://www.stockify.finance/indices/0xa0cb7a7a4beb0b4bb819637a961c1dfe9bee3507"

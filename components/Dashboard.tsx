@@ -54,23 +54,39 @@ export function Dashboard({ indexUrl }: { indexUrl?: string }) {
             source={<>DexScreener{s?.priceUsd != null && <> · {usdPrice(s.priceUsd)}</>}</>}
           />
           <Card label="24h volume" value={usdCompact(s?.volume24h)} source="DexScreener" />
-          <Card label="Holders" value={int(s?.holders)} source="Chain explorer" />
+          <Card label="Holders" value={int(s?.holders)} source="Base chain" />
           <Card
             label="Fees collected"
-            value={s?.feesCollectedEth != null ? <>{eth(s.feesCollectedEth)} ETH</> : DASH}
-            source={indexUrl ? <a href={indexUrl} target="_blank" rel="noopener noreferrer" className="underline decoration-ink/30 underline-offset-2 hover:text-accent">Stockify index</a> : "Fee wallet"}
+            value={s?.feesCollected != null ? <>{eth(s.feesCollected)} {s.rewardSymbol}</> : DASH}
+            source={
+              <>
+                {s?.feesCollectedUsd != null && <>{usdCompact(s.feesCollectedUsd)} · </>}
+                {indexUrl ? (
+                  <a href={indexUrl} target="_blank" rel="noopener noreferrer" className="underline decoration-ink/30 underline-offset-2 hover:text-accent">
+                    Stockify index
+                  </a>
+                ) : (
+                  "Index"
+                )}
+              </>
+            }
           />
           <Card
             label="ETH sent home"
-            value={s?.ethDistributedEth != null ? <>{eth(s.ethDistributedEth)} ETH</> : DASH}
+            value={s?.paidToHolders != null ? <>{eth(s.paidToHolders)} {s.rewardSymbol}</> : DASH}
             valueClass="text-glow"
-            source="Distributed to holders"
+            source={
+              <>
+                {s?.paidToHoldersUsd != null && <>{usdCompact(s.paidToHoldersUsd)} · </>}
+                Paid to holders{s?.rounds != null && <> · {int(s.rounds)} rounds</>}
+              </>
+            }
           />
           <Card
             label="Last transfer"
-            value={s?.lastDistributionAt ? "Confirmed" : DASH}
+            value={s?.lastPayoutAt ? "Confirmed" : DASH}
             valueClass="text-ok text-[clamp(1.1rem,1.6vw,1.35rem)]!"
-            source={<>{timeAgo(s?.lastDistributionAt)} · Mars → Earth</>}
+            source={<>{timeAgo(s?.lastPayoutAt)} · Mars → Earth</>}
           />
         </div>
 

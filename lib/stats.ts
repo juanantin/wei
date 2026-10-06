@@ -1,22 +1,21 @@
 import "server-only";
 import { config } from "./config";
+import { agoToMs, parsePanel, visibleText, type PanelFigures } from "./panel";
 import type { Stats } from "./types";
 
 const REVALIDATE = 60;
 
-async function getJson<T>(url: string): Promise<T> {
-  const res = await fetch(url, {
-    next: { revalidate: REVALIDATE },
-    signal: AbortSignal.timeout(10_000),
-  });
+async function fetchJson<T>(url: string): Promise<T> {
+  const res = await fetch(url, { next: { revalidate: REVALIDATE }, signal: AbortSignal.timeout(10_000) });
   if (!res.ok) throw new Error(`${res.status} ${url.split("?")[0]}`);
   return res.json() as Promise<T>;
 }
 
-// ---------- DexScreener: price, market cap, 24h volume, 24h txns ----------
+// ---------- Market: the named pool first, token search only as a fallback ----------
 
 type DexPair = {
   chainId?: string;
+  pairAddress?: string;
   priceUsd?: string;
   marketCap?: number;
   fdv?: number;
@@ -26,92 +25,60 @@ type DexPair = {
 };
 
 async function getMarket() {
-  if (!config.tokenAddress) throw new Error("TOKEN_ADDRESS not set");
-  // Chain-agnostic lookup: returns every pool for this address across all chains.
-  const data = await getJson<{ pairs: DexPair[] | null }>(
-    `https://api.dexscreener.com/latest/dex/tokens/${config.tokenAddress}`,
-  );
-  const pairs = (data.pairs ?? []).filter((p) => !config.dexChain || p.chainId === config.dexChain);
-  if (pairs.length === 0) throw new Error("no pairs");
-
-  // Price & market cap from the deepest pool; volume and txns summed across all pools.
-  const main = [...pairs].sort((a, b) => (b.liquidity?.usd ?? 0) - (a.liquidity?.usd ?? 0))[0];
-  const volume24h = pairs.reduce((s, p) => s + (p.volume?.h24 ?? 0), 0);
-  const txns24h = pairs.reduce((s, p) => s + (p.txns?.h24?.buys ?? 0) + (p.txns?.h24?.sells ?? 0), 0);
-
+  let pair: DexPair | undefined;
+  if (config.pool) {
+    const j = await fetchJson<{ pairs?: DexPair[] | null; pair?: DexPair | null }>(
+      `https://api.dexscreener.com/latest/dex/pairs/${config.chain}/${config.pool}`,
+    ).catch(() => null);
+    pair = j?.pair ?? j?.pairs?.[0] ?? undefined;
+  }
+  if (!pair) {
+    const j = await fetchJson<{ pairs: DexPair[] | null }>(`https://api.dexscreener.com/latest/dex/tokens/${config.tokenAddress}`);
+    pair = (j.pairs ?? [])
+      .filter((p) => p.chainId === config.chain)
+      .sort((a, b) => (b.liquidity?.usd ?? 0) - (a.liquidity?.usd ?? 0))[0];
+  }
+  if (!pair) throw new Error("no pool");
+  const t = pair.txns?.h24;
   return {
-    priceUsd: main.priceUsd ? Number(main.priceUsd) : null,
-    marketCap: main.marketCap ?? main.fdv ?? null,
-    volume24h,
-    txns24h,
+    priceUsd: pair.priceUsd ? Number(pair.priceUsd) : null,
+    marketCap: pair.marketCap ?? pair.fdv ?? null,
+    volume24h: pair.volume?.h24 ?? null,
+    txns24h: t ? t.buys + t.sells : null,
   };
 }
 
-// ---------- Holders ----------
+// ---------- Rewards: the index's own panel (live), then the committed snapshot ----------
 
-async function getHolders(): Promise<number> {
-  if (!config.tokenAddress) throw new Error("TOKEN_ADDRESS not set");
+type PanelSnapshot = PanelFigures & { at: string };
 
-  if (config.holdersProvider === "etherscan") {
-    const data = await getJson<{ status: string; result: string }>(
-      `https://api.etherscan.io/v2/api?chainid=${config.explorerChainId}&module=token&action=tokenholdercount&contractaddress=${config.tokenAddress}&apikey=${config.etherscanKey}`,
-    );
-    if (data.status !== "1") throw new Error(`etherscan: ${data.result}`);
-    return Number(data.result);
+async function getPanel(): Promise<{ figures: PanelFigures; at: number }> {
+  try {
+    const res = await fetch(config.indexUrl, {
+      next: { revalidate: REVALIDATE },
+      headers: { "user-agent": "Mozilla/5.0 wei-dashboard" },
+      signal: AbortSignal.timeout(10_000),
+    });
+    if (!res.ok) throw new Error(String(res.status));
+    const figures = parsePanel(visibleText(await res.text()));
+    if (figures.paidToHolders == null || figures.feesCollected == null) throw new Error("panel parse failed");
+    return { figures, at: Date.now() };
+  } catch {
+    const snap = await fetchJson<PanelSnapshot>(`${config.dataUrl}/panel.json`);
+    if (snap.paidToHolders == null || snap.feesCollected == null) throw new Error("snapshot empty");
+    return { figures: snap, at: Date.parse(snap.at) };
   }
-
-  if (!config.blockscoutUrl) throw new Error("BLOCKSCOUT_URL not set");
-  const data = await getJson<{ token_holders_count: string }>(
-    `${config.blockscoutUrl}/api/v2/tokens/${config.tokenAddress}/counters`,
-  );
-  return Number(data.token_holders_count);
 }
 
-// ---------- Fee wallet: ETH in (fees collected) / ETH out (distributed) ----------
+// ---------- Chain indexer output (holders, exact last payout time) ----------
 
-type EsTx = { from: string; to: string; value: string; isError: string; timeStamp: string };
+type Rewards = {
+  synced: boolean;
+  holders: number | null;
+  lastPayout: { time: number | null } | null;
+};
 
-async function etherscanList(action: "txlist" | "txlistinternal", address: string): Promise<EsTx[]> {
-  const data = await getJson<{ status: string; message: string; result: EsTx[] | string }>(
-    `https://api.etherscan.io/v2/api?chainid=${config.explorerChainId}&module=account&action=${action}&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${config.etherscanKey}`,
-  );
-  if (data.status === "1" && Array.isArray(data.result)) return data.result;
-  if (data.message === "No transactions found") return [];
-  throw new Error(`etherscan ${action}: ${typeof data.result === "string" ? data.result : data.message}`);
-}
-
-async function getFees() {
-  const fromOverride = (v: string) => (v !== "" && Number.isFinite(Number(v)) ? Number(v) : null);
-  let fees = fromOverride(config.feesOverride);
-  let distributed = fromOverride(config.distributedOverride);
-  let lastDistributionAt: number | null = null;
-
-  if ((fees === null || distributed === null) && config.feeWallet && config.etherscanKey) {
-    const wallet = config.feeWallet.toLowerCase();
-    const [normal, internal] = await Promise.all([
-      etherscanList("txlist", wallet),
-      etherscanList("txlistinternal", wallet),
-    ]);
-    let inWei = BigInt(0);
-    let outWei = BigInt(0);
-    for (const tx of [...normal, ...internal]) {
-      if (tx.isError !== "0") continue;
-      const v = BigInt(tx.value || "0");
-      if (v === BigInt(0)) continue;
-      if (tx.to?.toLowerCase() === wallet) inWei += v;
-      if (tx.from?.toLowerCase() === wallet) {
-        outWei += v;
-        lastDistributionAt = Math.max(lastDistributionAt ?? 0, Number(tx.timeStamp) * 1000);
-      }
-    }
-    const toEth = (w: bigint) => Number(w / BigInt(1e12)) / 1e6;
-    fees ??= toEth(inWei);
-    distributed ??= toEth(outWei);
-  }
-
-  if (fees === null && distributed === null) throw new Error("fee wallet not configured");
-  return { feesCollectedEth: fees, ethDistributedEth: distributed, lastDistributionAt };
-}
+const getRewards = () => fetchJson<Rewards>(`${config.dataUrl}/rewards.json`);
 
 // ---------- Aggregate ----------
 
@@ -122,25 +89,38 @@ function settled<T>(r: PromiseSettledResult<T>, label: string): T | null {
 }
 
 export async function getStats(): Promise<Stats> {
-  const [m, h, f] = await Promise.allSettled([getMarket(), getHolders(), getFees()]);
+  const [m, p, r] = await Promise.allSettled([getMarket(), getPanel(), getRewards()]);
   const market = settled(m, "market");
-  const holders = settled(h, "holders");
-  const fees = settled(f, "fees");
+  const panel = settled(p, "panel");
+  const rewards = settled(r, "rewards");
 
   const txns = market?.txns24h ?? null;
-  const vitality =
-    txns === null ? null : Math.max(0, Math.min(100, (txns / config.vitalityMaxTxns) * 100));
+  const vitality = txns === null ? null : Math.max(0, Math.min(100, (txns / config.vitalityMaxTxns) * 100));
 
+  // A zero holder count means "not indexed yet", never "no holders".
+  const holders = rewards?.synced && rewards.holders ? rewards.holders : null;
+
+  let lastPayoutAt = rewards?.lastPayout?.time ?? null;
+  if (!lastPayoutAt && panel?.figures.lastPayout) {
+    const ago = agoToMs(panel.figures.lastPayout.agoValue, panel.figures.lastPayout.agoUnit);
+    if (ago != null) lastPayoutAt = panel.at - ago;
+  }
+
+  const f = panel?.figures;
   return {
     priceUsd: market?.priceUsd ?? null,
     marketCap: market?.marketCap ?? null,
     volume24h: market?.volume24h ?? null,
     txns24h: txns,
     vitality,
-    holders: holders !== null && Number.isFinite(holders) ? holders : null,
-    feesCollectedEth: fees?.feesCollectedEth ?? null,
-    ethDistributedEth: fees?.ethDistributedEth ?? null,
-    lastDistributionAt: fees?.lastDistributionAt ?? null,
+    holders,
+    rewardSymbol: f?.rewardSymbol ?? null,
+    feesCollected: f?.feesCollected ?? null,
+    feesCollectedUsd: f?.feesCollectedUsd ?? null,
+    paidToHolders: f?.paidToHolders ?? null,
+    paidToHoldersUsd: f?.paidToHoldersUsd ?? null,
+    rounds: f?.roundsPaid ?? null,
+    lastPayoutAt,
     updatedAt: Date.now(),
   };
 }

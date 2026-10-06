@@ -5,9 +5,13 @@ export type Stats = {
   txns24h: number | null;
   vitality: number | null; // 0–100
   holders: number | null;
-  feesCollectedEth: number | null;
-  ethDistributedEth: number | null;
-  lastDistributionAt: number | null; // unix ms
+  rewardSymbol: string | null; // what the index pays in (WETH)
+  feesCollected: number | null; // in rewardSymbol
+  feesCollectedUsd: number | null;
+  paidToHolders: number | null; // in rewardSymbol
+  paidToHoldersUsd: number | null;
+  rounds: number | null;
+  lastPayoutAt: number | null; // unix ms
   updatedAt: number;
 };
 

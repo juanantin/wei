@@ -20,19 +20,32 @@ npm run build && npm start   # production check
 
 ## Live dashboard
 
-`/api/stats` runs on the server only. It caches upstream calls for 60 seconds, and the browser polls it every 60 seconds. API keys come from env vars with no `NEXT_PUBLIC_` prefix, so they never reach the client. Any call that fails shows `—`.
+`/api/stats` runs on the server and caches every source for 60 seconds. The browser polls it every 60 seconds. Anything unknown or failing renders as `—`.
 
 | Card | Source |
 |---|---|
-| Market cap, 24h volume, price | DexScreener `latest/dex/tokens/{address}` (all chains, or limited by `DEXSCREENER_CHAIN`). Price and market cap come from the deepest pool; volume is summed across all pools |
-| Holders | Blockscout (free) or Etherscan V2 `tokenholdercount` (Pro plan). Chosen with `HOLDERS_PROVIDER` |
-| Fees collected / ETH sent home / Last transfer | Etherscan V2 normal and internal txs of `FEE_WALLET`: ETH in = fees, ETH out = distributed. You can override them with `*_OVERRIDE` |
-| Wei vitality | 24h txns (buys + sells) ÷ `VITALITY_MAX_TXNS`, capped at 100% |
+| Market cap, 24h volume, price, vitality | DexScreener, for the named Aerodrome pool `0xf9eb…38f2` (`content/site.json` → `pool`) |
+| Fees collected, ETH sent home, rounds | The [Stockify index panel](https://www.stockify.finance/indices/0xa0cb7a7a4beb0b4bb819637a961c1dfe9bee3507), read live. Falls back to the committed `data/panel.json` |
+| Holders, last transfer | The chain indexer's `data/rewards.json`, which folds every WEI `Transfer` since launch |
 
-See `.env.example` for every variable.
+### Data pipeline (GitHub Actions)
+
+The sandboxed dev environment can't reach Base, so every lookup runs on Actions and **commits** its result. Runners are ephemeral.
+
+| Workflow | Script | What it does |
+|---|---|---|
+| `discover.yml` | `scripts/discover-token.mjs` | Pools, token and quote metadata read on chain, candidate distributor flows → `data/discovery.json` |
+| `probe.yml` | `scripts/find-launch.mjs`, `scripts/panel-probe.mjs` | Deploy blocks via `eth_getCode` binary search → `data/launch.txt`; panel figures → `data/panel.json` |
+| `index.yml` (every 15 min) | `scripts/panel-probe.mjs`, `scripts/index-rewards.mjs` | Resumes from `data/rewards-state.json`; writes `data/rewards.json`; prints a panel-vs-chain reconcile |
+
+Every address and block in `scripts/config.mjs` was read from the network. Its `MISSING` list must be empty, or the indexer refuses to run. Scheduled crons can be delayed or dropped. To force a run, change `data/.index-trigger` and push.
+
+Optional: add a private Base RPC as the repository secret `RPC_URL`. Otherwise the jobs use `https://mainnet.base.org`.
+
+`vercel.json` skips Vercel builds for commits that only touch `data/`.
 
 ## Deploy on Vercel
 
 1. Import `juanantin/wei` in Vercel (framework preset: Next.js, no root directory needed).
-2. Add the variables from `.env.example` under Project → Settings → Environment Variables.
+2. No environment variables are required (see `.env.example` for optional overrides).
 3. Deploy, then add your domain under Settings → Domains.

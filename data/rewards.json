@@ -1,0 +1,19 @@
+{
+  "updatedAt": "2026-10-06T14:55:34.526Z",
+  "synced": false,
+  "cursor": 52180570,
+  "head": 52254225,
+  "holders": null,
+  "holdersAboveMin": null,
+  "feesCollected": 0.27162109752526725,
+  "paidToHolders": 0.2665780909586091,
+  "outOverIn": 0.981433,
+  "rounds": 66,
+  "walletPayments": 2526,
+  "lastPayout": {
+    "block": 52180570,
+    "time": 1791150487000,
+    "amount": 0.000560334062962006,
+    "holders": 1
+  }
+}

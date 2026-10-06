@@ -16,12 +16,6 @@ export function Hero({ links }: { links: { launch: string; index: string } }) {
       <div className="container-x absolute inset-x-0 top-6 md:top-8">
         <HeroBase />
       </div>
-      <div className="container-x absolute inset-x-0 bottom-8 md:bottom-12">
-        <div className="flex justify-end">
-          <HeroPartners links={links} />
-        </div>
-      </div>
-
       <div className="container-x pb-20 pt-16 md:pt-12">
         <div className="max-w-[620px]">
           <h1 className="title inline-flex flex-col items-center tracking-[-0.02em]">
@@ -38,7 +32,11 @@ export function Hero({ links }: { links: { launch: string; index: string } }) {
             hostile. And an immortal dog that cannot die, as long as the blockchain lives.
           </p>
 
-          <div className="anim-rise mt-9 flex flex-wrap gap-3" style={{ "--d": "880ms" } as React.CSSProperties}>
+        </div>
+
+        {/* Buttons left, Stonks Exchange + Stockify right — bottoms aligned */}
+        <div className="mt-9 flex flex-wrap items-end justify-between gap-x-6 gap-y-8">
+          <div className="anim-rise flex flex-wrap gap-3" style={{ "--d": "880ms" } as React.CSSProperties}>
             <a
               href="#episodes"
               className="btn-sheen inline-flex items-center gap-2.5 rounded-[3px] bg-accent px-6 py-3.5 text-[0.95rem] font-semibold text-bg transition hover:brightness-110"
@@ -54,6 +52,9 @@ export function Hero({ links }: { links: { launch: string; index: string } }) {
             >
               Read the lore
             </a>
+          </div>
+          <div className="ml-auto">
+            <HeroPartners links={links} />
           </div>
         </div>
       </div>

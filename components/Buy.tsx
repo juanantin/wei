@@ -75,7 +75,6 @@ export function Buy({ address, ticker, links }: { address: string; ticker: strin
           </div>
           {[
             { href: links.chart, label: "Chart" },
-            { href: links.index, label: "Index" },
             { href: links.x, label: "X" },
             { href: links.telegram, label: "Telegram" },
           ]

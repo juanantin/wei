@@ -1,7 +1,8 @@
 import Image from "next/image";
 import { Dust } from "./Dust";
+import { HeroBadges } from "./Partners";
 
-export function Hero({ incoming }: { incoming: number | null }) {
+export function Hero({ incoming, links }: { incoming: number | null; links: { launch: string; index: string } }) {
   return (
     <section id="top" className="relative isolate flex min-h-[640px] items-center overflow-hidden md:min-h-[760px]">
       <div className="absolute inset-0 -z-20 overflow-hidden">
@@ -12,7 +13,11 @@ export function Hero({ incoming }: { incoming: number | null }) {
       <div className="absolute inset-0 -z-10 bg-gradient-to-r from-bg/80 via-bg/30 to-transparent" />
       <div className="absolute inset-x-0 bottom-0 -z-10 h-1/3 bg-gradient-to-t from-bg to-transparent" />
 
-      <div className="container-x py-24">
+      <div className="container-x absolute inset-x-0 top-6 md:top-8">
+        <HeroBadges links={links} />
+      </div>
+
+      <div className="container-x pb-24 pt-32 md:pt-36">
         <div className="max-w-[620px]">
           <div
             className="anim-fade flicker label inline-flex items-center gap-2.5 rounded-[3px] border border-ink/15 bg-bg/70 px-3.5 py-2 text-[0.68rem] text-ink/90 backdrop-blur-sm"
@@ -23,17 +28,17 @@ export function Hero({ incoming }: { incoming: number | null }) {
             {incoming !== null && <> · Episode {String(incoming).padStart(2, "0")} incoming</>}
           </div>
 
-          <h1 className="title mt-6 text-[clamp(5.5rem,15vw,11.5rem)] leading-[0.82] tracking-[-0.02em]">
-            <span className="anim-rise block" style={{ "--d": "250ms" } as React.CSSProperties}>
+          <h1 className="title mt-6 tracking-[-0.02em]">
+            <span className="anim-rise block text-[clamp(7.5rem,24vw,17rem)] leading-[0.8]" style={{ "--d": "250ms" } as React.CSSProperties}>
               Wei
             </span>
-            <span className="anim-rise block" style={{ "--d": "420ms" } as React.CSSProperties}>
+            <span className="anim-rise mt-2 block text-[clamp(2.75rem,7vw,5.25rem)] leading-[0.9] tracking-[0.02em]" style={{ "--d": "420ms" } as React.CSSProperties}>
               The Dog
             </span>
           </h1>
 
           <p style={{ "--d": "700ms" } as React.CSSProperties} className="anim-rise mt-8 max-w-[540px] text-lg leading-relaxed text-ink/90 md:text-xl">
-            A colonist alone on Mars, sending ETH home to his family. A rover that turned hostile. And a dog that
+            In a near future, a colonist alone on Mars, sending ETH home to his family. A rover that turned hostile. And a dog that
             cannot die, as long as the chain lives.
           </p>
 

@@ -24,7 +24,7 @@ export default function Home() {
     <StatsProvider>
       <Nav ticker={ticker} buyUrl={site.links.buy} xUrl={site.links.x} chartUrl={site.links.chart} />
       <main>
-        <Hero incoming={nextLocked?.number ?? null} />
+        <Hero incoming={nextLocked?.number ?? null} links={site.links} />
         <Lore tweetUrl={site.lore_tweet} />
         <Dashboard indexUrl={site.links.index} />
         <Tech contract={config.tokenAddress} indexUrl={site.links.index} />
@@ -37,7 +37,7 @@ export default function Home() {
         />
         <Buy address={config.tokenAddress} ticker={ticker} links={site.links} />
       </main>
-      <Footer />
+      <Footer links={site.links} />
     </StatsProvider>
   );
 }

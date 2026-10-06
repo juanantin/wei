@@ -11,7 +11,8 @@
     "chart": "https://dexscreener.com/base/0xf9eb54a57310e92eb241364b1b1b569de4a838f2",
     "x": "https://x.com/Weithedog",
     "telegram": "",
-    "index": "https://www.stockify.finance/indices/0xa0cb7a7a4beb0b4bb819637a961c1dfe9bee3507"
+    "index": "https://www.stockify.finance/indices/0xa0cb7a7a4beb0b4bb819637a961c1dfe9bee3507",
+    "launch": "https://www.thestonks.exchange/token/0xd47bdd392def5eebd46a1d8ebb234d28a2087321"
   },
   "lore_tweet": "https://x.com/cobie/status/1348993489669935108"
 }

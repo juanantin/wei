@@ -9,7 +9,7 @@ export const INDEX = "0xa0cb7a7a4beb0b4bb819637a961c1dfe9bee3507"; // owner-supp
 export const INDEX_URL = `https://www.stockify.finance/indices/${INDEX}`;
 export const REWARD_TOKEN = "0x4200000000000000000000000000000000000006"; // panel "WHAT IT HOLDS": WETH 100%; symbol() = WETH
 export const REWARD_DECIMALS = 18; // decimals() on WETH, read separately from the token's
-export const START_BLOCK = null; // token deployment block — found by scripts/find-launch.mjs
+export const START_BLOCK = 52140071; // INDEX deploy block (token + pool: 52140075), eth_getCode binary search — data/launch.txt
 
 export const MISSING = Object.entries({ CHAIN_ID, TOKEN, TOKEN_DECIMALS, POOL, INDEX, REWARD_TOKEN, REWARD_DECIMALS, START_BLOCK })
   .filter(([, v]) => v === null || v === undefined)

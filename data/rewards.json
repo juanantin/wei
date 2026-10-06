@@ -1,19 +1,19 @@
 {
-  "updatedAt": "2026-10-06T14:55:34.526Z",
+  "updatedAt": "2026-10-06T15:08:40.490Z",
   "synced": false,
-  "cursor": 52180570,
-  "head": 52254225,
+  "cursor": 52221070,
+  "head": 52254619,
   "holders": null,
   "holdersAboveMin": null,
-  "feesCollected": 0.27162109752526725,
-  "paidToHolders": 0.2665780909586091,
-  "outOverIn": 0.981433,
-  "rounds": 66,
-  "walletPayments": 2526,
+  "feesCollected": 0.30291162911577585,
+  "paidToHolders": 0.29918126568067693,
+  "outOverIn": 0.987684,
+  "rounds": 75,
+  "walletPayments": 2896,
   "lastPayout": {
-    "block": 52180570,
-    "time": 1791150487000,
-    "amount": 0.000560334062962006,
+    "block": 52217319,
+    "time": 1791223985000,
+    "amount": 0.000414484826122094,
     "holders": 1
   }
 }

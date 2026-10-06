@@ -35,16 +35,21 @@ function Stockify({ href, className = "h-5 sm:h-7" }: { href: string; className?
   );
 }
 
-/** Hero, top right: a right-aligned vertical stack — Stonks Exchange, Stockify, Base. */
-export function HeroBadges({ links }: { links: Links }) {
+/** Hero, top right: Built on Base. */
+export function HeroBase() {
   return (
-    <div
-      className="anim-fade flex flex-col items-end gap-3 sm:gap-3.5"
-      style={{ "--d": "50ms" } as React.CSSProperties}
-    >
-      <Stonks href={links.launch} className="h-3 sm:h-4" />
-      <Stockify href={links.index} className="h-5 sm:h-6" />
-      <Base iconClass="size-4" textClass="text-[0.6rem] sm:text-[0.66rem]" />
+    <div className="anim-fade flex justify-end" style={{ "--d": "50ms" } as React.CSSProperties}>
+      <Base iconClass="size-4 sm:size-5" textClass="text-[0.6rem] sm:text-[0.7rem]" />
+    </div>
+  );
+}
+
+/** Hero, bottom right: Stonks Exchange over Stockify, right-aligned. */
+export function HeroPartners({ links }: { links: Links }) {
+  return (
+    <div className="anim-fade flex flex-col items-end gap-3.5" style={{ "--d": "900ms" } as React.CSSProperties}>
+      <Stonks href={links.launch} className="h-3.5 sm:h-[18px]" />
+      <Stockify href={links.index} className="h-6 sm:h-7" />
     </div>
   );
 }

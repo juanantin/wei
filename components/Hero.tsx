@@ -1,6 +1,6 @@
 import { Dust } from "./Dust";
 import { HeroVideo } from "./HeroVideo";
-import { HeroBadges } from "./Partners";
+import { HeroBase, HeroPartners } from "./Partners";
 
 export function Hero({ links }: { links: { launch: string; index: string } }) {
   return (
@@ -14,7 +14,12 @@ export function Hero({ links }: { links: { launch: string; index: string } }) {
       <div className="absolute inset-x-0 bottom-0 -z-10 h-1/3 bg-gradient-to-t from-bg to-transparent" />
 
       <div className="container-x absolute inset-x-0 top-6 md:top-8">
-        <HeroBadges links={links} />
+        <HeroBase />
+      </div>
+      <div className="container-x absolute inset-x-0 bottom-8 md:bottom-12">
+        <div className="flex justify-end">
+          <HeroPartners links={links} />
+        </div>
       </div>
 
       <div className="container-x pb-20 pt-16 md:pt-12">

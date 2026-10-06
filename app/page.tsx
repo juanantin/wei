@@ -22,7 +22,7 @@ export default function Home() {
 
   return (
     <StatsProvider>
-      <Nav ticker={ticker} buyUrl={site.links.buy} />
+      <Nav ticker={ticker} buyUrl={site.links.buy} xUrl={site.links.x} chartUrl={site.links.chart} />
       <main>
         <Hero incoming={nextLocked?.number ?? null} />
         <Lore tweetUrl={site.lore_tweet} />

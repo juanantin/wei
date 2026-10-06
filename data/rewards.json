@@ -1,14 +1,14 @@
 {
-  "updatedAt": "2026-10-06T18:36:17.782Z",
+  "updatedAt": "2026-10-06T18:41:33.585Z",
   "synced": true,
-  "cursor": 52261210,
-  "head": 52261210,
-  "holders": 381,
+  "cursor": 52261367,
+  "head": 52261367,
+  "holders": 383,
   "holdersAboveMin": 208,
   "feesCollected": 0.3235700080751853,
-  "paidToHolders": 0.28775114323600065,
+  "paidToHolders": 0.28817723739276363,
   "protocolCut": 0.03155792327155448,
-  "holderShare": 0.889301,
+  "holderShare": 0.890617,
   "protocolShare": 0.09753,
   "otherOut": 0.04190303655435059,
   "otherOutByRecipient": {
@@ -23,12 +23,12 @@
     "0xb873e58d96227e12f08c734fc2d9b0101be199b2": 0.000258708803787026,
     "0x95b428d3df31f0aee919892abccf315eb471bbc5": 0.00023568004389295
   },
-  "rounds": 34,
-  "walletPayments": 3068,
+  "rounds": 35,
+  "walletPayments": 3069,
   "lastPayout": {
-    "block": 52258071,
-    "time": 1791305489000,
-    "amount": 0.003245320657378052,
-    "holders": 61
+    "block": 52261351,
+    "time": 1791312049000,
+    "amount": 0.000426094156763013,
+    "holders": 1
   }
 }

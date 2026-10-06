@@ -16,7 +16,7 @@ npm run build && npm start   # production check
   - The hero badge ("Episode 0X incoming") points at the first locked episode.
   - `video_url` accepts YouTube, Vimeo or a direct `.mp4`/`.webm` link.
 - **Contract, film, links, tweet**: `content/site.json`. A link left empty hides its button.
-- **Images**: `public/wei-assets/`: `hero.jpg` (hero), `wei-medallion.jpg` (nav + vitality avatar), `tweet-fallback.jpg`, `ep01.jpg`…, `film-poster.jpg`, `hero-wide.jpg` (Keep Wei Alive background). To change an image, overwrite the file with the same name.
+- **Images**: `public/wei-assets/`: `hero.jpg` (hero), `wei-logo.png` (logo, vitality avatar, favicon; source: `content/wei_image.png`), `tweet-fallback.jpg`, `ep01.jpg`…, `film-poster.jpg`, `hero-wide.jpg` (Keep Wei Alive background). To change an image, overwrite the file with the same name.
 
 ## Live dashboard
 

@@ -92,7 +92,7 @@ export function Dashboard({ indexUrl }: { indexUrl?: string }) {
 
         <div className="mt-3 flex flex-col gap-5 rounded-[4px] border border-line bg-card p-5 sm:flex-row sm:items-center md:mt-4 md:gap-7 md:p-6">
           <Image
-            src="/wei-assets/wei-medallion.jpg"
+            src="/wei-assets/wei-logo.png"
             alt="Wei"
             width={88}
             height={88}

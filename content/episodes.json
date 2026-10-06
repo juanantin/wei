@@ -1,0 +1,46 @@
+[
+  {
+    "number": 1,
+    "title": "The Walk",
+    "description": "A morning ritual. A growl at an empty horizon. Two red lights in the dust.",
+    "thumbnail": "/wei-assets/ep01.jpg",
+    "video_url": "",
+    "duration": "0:45",
+    "new": false,
+    "locked": false,
+    "unlock_at_holders": null
+  },
+  {
+    "number": 2,
+    "title": "The Chase",
+    "description": "Something with six wheels comes out of the dust. Run for the hatch.",
+    "thumbnail": "/wei-assets/ep02.jpg",
+    "video_url": "",
+    "duration": "0:50",
+    "new": false,
+    "locked": false,
+    "unlock_at_holders": null
+  },
+  {
+    "number": 3,
+    "title": "Pending",
+    "description": "The transfer home won't confirm. The nodes go dark. Wei knows what to do.",
+    "thumbnail": "/wei-assets/ep03.jpg",
+    "video_url": "",
+    "duration": "",
+    "new": true,
+    "locked": false,
+    "unlock_at_holders": null
+  },
+  {
+    "number": 4,
+    "title": "",
+    "description": "",
+    "thumbnail": "",
+    "video_url": "",
+    "duration": "",
+    "new": false,
+    "locked": true,
+    "unlock_at_holders": 1000
+  }
+]

@@ -28,11 +28,11 @@ export function Hero({ incoming, links }: { incoming: number | null; links: { la
             {incoming !== null && <> · Episode {String(incoming).padStart(2, "0")} incoming</>}
           </div>
 
-          <h1 className="title mt-6 tracking-[-0.02em]">
+          <h1 className="title mt-6 inline-flex flex-col items-center tracking-[-0.02em]">
             <span className="anim-rise block text-[clamp(7.5rem,24vw,17rem)] leading-[0.8]" style={{ "--d": "250ms" } as React.CSSProperties}>
               Wei
             </span>
-            <span className="anim-rise mt-2 block text-[clamp(2.75rem,7vw,5.25rem)] leading-[0.9] tracking-[0.02em]" style={{ "--d": "420ms" } as React.CSSProperties}>
+            <span className="anim-rise -mt-1 block text-[clamp(3.6rem,10.5vw,7.6rem)] leading-[0.9] tracking-[0.01em]" style={{ "--d": "420ms" } as React.CSSProperties}>
               The Dog
             </span>
           </h1>

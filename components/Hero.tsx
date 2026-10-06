@@ -17,7 +17,7 @@ export function Hero({ links }: { links: { launch: string; index: string } }) {
         <HeroBadges links={links} />
       </div>
 
-      <div className="container-x pb-24 pt-20 md:pt-24">
+      <div className="container-x pb-20 pt-16 md:pt-12">
         <div className="max-w-[620px]">
           <h1 className="title inline-flex flex-col items-center tracking-[-0.02em]">
             <span className="anim-rise block text-[clamp(7.5rem,24vw,17rem)] leading-[0.8]" style={{ "--d": "250ms" } as React.CSSProperties}>
@@ -28,9 +28,9 @@ export function Hero({ links }: { links: { launch: string; index: string } }) {
             </span>
           </h1>
 
-          <p style={{ "--d": "700ms" } as React.CSSProperties} className="anim-rise mt-8 max-w-[540px] text-lg leading-relaxed text-ink/90 md:text-xl">
-            In a near future, a colonist alone on Mars, sending ETH home to his family. A rover that turned hostile. And a dog that
-            cannot die, as long as the chain lives.
+          <p style={{ "--d": "700ms" } as React.CSSProperties} className="anim-rise mt-14 max-w-[560px] md:mt-24 text-lg leading-relaxed text-ink/90 md:text-xl">
+            In a near future, a colonist alone on Mars, sending ETH to his family back on Earth. A rover that turned
+            hostile. And an immortal dog that cannot die, as long as the blockchain lives.
           </p>
 
           <div className="anim-rise mt-9 flex flex-wrap gap-3" style={{ "--d": "880ms" } as React.CSSProperties}>

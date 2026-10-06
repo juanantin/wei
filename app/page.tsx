@@ -11,6 +11,7 @@ import { Hero } from "@/components/Hero";
 import { Lore } from "@/components/Lore";
 import { Nav } from "@/components/Nav";
 import { StatsProvider } from "@/components/StatsProvider";
+import { Tech } from "@/components/Tech";
 
 const episodes = episodesData as Episode[];
 
@@ -26,6 +27,7 @@ export default function Home() {
         <Hero incoming={nextLocked?.number ?? null} />
         <Lore tweetUrl={site.lore_tweet} />
         <Dashboard indexUrl={site.links.index} />
+        <Tech contract={config.tokenAddress} indexUrl={site.links.index} />
         <Episodes episodes={episodes} />
         <FullFilm
           poster={site.film.poster}

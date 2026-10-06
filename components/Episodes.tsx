@@ -29,9 +29,7 @@ function LockedCard({ ep }: { ep: Episode }) {
         <p className="label text-[0.66rem] text-muted">Ep. {pad(ep.number)}</p>
         <h3 className="title mt-3 text-[2rem] text-[#8a6a58]">Locked</h3>
         <p className="mt-2 text-[0.92rem] text-ink/70">
-          {ep.unlock_at_holders != null
-            ? `Unlocks at ${ep.unlock_at_holders.toLocaleString("en-US")} holders.`
-            : "Signal incoming."}
+          Coming soon.
         </p>
       </div>
     </div>

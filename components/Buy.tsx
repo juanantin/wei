@@ -61,7 +61,7 @@ export function Buy({ address, ticker, links }: { address: string; ticker: strin
             rel="noopener noreferrer"
             className="inline-flex items-center rounded-[3px] bg-accent px-6 py-3.5 text-[0.95rem] font-semibold text-bg transition hover:brightness-110"
           >
-            Buy ${ticker}
+            Buy ${ticker} · Earn $ETH
           </a>
           {[
             { href: links.chart, label: "Chart" },

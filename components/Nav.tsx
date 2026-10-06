@@ -6,6 +6,7 @@ import { useState } from "react";
 const LINKS = [
   { href: "#lore", label: "Lore" },
   { href: "#dashboard", label: "Dashboard" },
+  { href: "#tech", label: "The tech" },
   { href: "#episodes", label: "Episodes" },
   { href: "#film", label: "Full film" },
 ];
@@ -39,7 +40,7 @@ export function Nav({ ticker, buyUrl }: { ticker: string; buyUrl: string }) {
             rel="noopener noreferrer"
             className="label rounded-[3px] bg-accent px-5 py-3 text-[0.7rem] font-semibold text-bg transition hover:brightness-110"
           >
-            Buy ${ticker}
+            Buy ${ticker} · Earn $ETH
           </a>
         </nav>
 
@@ -70,7 +71,7 @@ export function Nav({ ticker, buyUrl }: { ticker: string; buyUrl: string }) {
               rel="noopener noreferrer"
               className="label mt-3 rounded-[3px] bg-accent px-5 py-3 text-center font-semibold text-bg"
             >
-              Buy ${ticker}
+              Buy ${ticker} · Earn $ETH
             </a>
           </div>
         </nav>

@@ -82,10 +82,11 @@ export function Dashboard({ indexUrl }: { indexUrl?: string }) {
             source={
               <>
                 {s?.paidToHoldersUsd != null && <>{usdCompact(s.paidToHoldersUsd)} · </>}
-                Paid to holders{s?.rounds != null && <> · {int(s.rounds)} rounds</>}
+                Paid to holders
               </>
             }
           />
+          <Card label="Payout rounds" value={int(s?.rounds)} source="Transfers home · every 15 min at the earliest" />
           <Card
             label="Last transfer"
             value={s?.lastPayoutAt ? "Confirmed" : DASH}

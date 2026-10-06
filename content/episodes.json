@@ -41,6 +41,6 @@
     "duration": "",
     "new": false,
     "locked": true,
-    "unlock_at_holders": 1000
+    "unlock_at_holders": null
   }
 ]

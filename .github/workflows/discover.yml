@@ -1,0 +1,38 @@
+name: discover
+# Runs on push to its own files (workflow_dispatch may be unavailable to bots).
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - scripts/discover-token.mjs
+      - scripts/lib.mjs
+      - .github/workflows/discover.yml
+      - data/.discover-trigger
+permissions:
+  contents: write
+concurrency:
+  group: data-commit
+  cancel-in-progress: false
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Discover
+        env:
+          TOKEN: "0xd47Bdd392deF5eEBD46A1d8ebb234D28A2087321"
+          RPC_URL: ${{ secrets.RPC_URL }}
+        run: node scripts/discover-token.mjs
+      - name: Commit discovery
+        if: always()
+        run: |
+          git config user.name "wei-data-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/discovery.json || true
+          git diff --cached --quiet && exit 0
+          git commit -m "data: discovery snapshot"
+          for i in 1 2 3; do git pull --rebase -q && git push && break; sleep 5; done

@@ -35,20 +35,16 @@ function Stockify({ href, className = "h-5 sm:h-7" }: { href: string; className?
   );
 }
 
-const Sep = () => <span aria-hidden className="h-4 w-px shrink-0 bg-ink/25 sm:h-6" />;
-
-/** Hero, top right: Built on Base | Stonks Exchange | Stockify. */
+/** Hero, top right: a right-aligned vertical stack — Stonks Exchange, Stockify, Base. */
 export function HeroBadges({ links }: { links: Links }) {
   return (
     <div
-      className="anim-fade flex items-center justify-end gap-3 sm:gap-6"
+      className="anim-fade flex flex-col items-end gap-3 sm:gap-3.5"
       style={{ "--d": "50ms" } as React.CSSProperties}
     >
-      <Base />
-      <Sep />
-      <Stonks href={links.launch} />
-      <Sep />
-      <Stockify href={links.index} />
+      <Stonks href={links.launch} className="h-3 sm:h-4" />
+      <Stockify href={links.index} className="h-5 sm:h-6" />
+      <Base iconClass="size-4" textClass="text-[0.6rem] sm:text-[0.66rem]" />
     </div>
   );
 }

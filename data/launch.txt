@@ -1,0 +1,20 @@
+
+===== LAUNCH =====
+{
+  "TOKEN": {
+    "address": "0xd47bdd392def5eebd46a1d8ebb234d28a2087321",
+    "block": 52140075,
+    "time": "2026-10-03T23:18:17.000Z"
+  },
+  "POOL": {
+    "address": "0xf9eb54a57310e92eb241364b1b1b569de4a838f2",
+    "block": 52140075,
+    "time": "2026-10-03T23:18:17.000Z"
+  },
+  "INDEX": {
+    "address": "0xa0cb7a7a4beb0b4bb819637a961c1dfe9bee3507",
+    "block": 52140071,
+    "time": "2026-10-03T23:18:09.000Z"
+  }
+}
+export const START_BLOCK = 52140075;

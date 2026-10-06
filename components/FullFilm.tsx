@@ -34,7 +34,13 @@ export function FullFilm({
               <Decode text="Season one" />
             </p>
         <Reveal>
-          <h2 className="title mt-5 text-[clamp(3rem,6.5vw,5.25rem)]">The full film</h2>
+          <h2 className="title mt-5 flex flex-wrap items-center gap-x-5 gap-y-3 text-[clamp(3rem,6.5vw,5.25rem)]">
+            The full film
+            <span className="inline-flex items-center gap-2 rounded-[3px] border border-accent/50 bg-accent/10 px-3 py-1.5 font-mono text-[0.72rem] font-medium uppercase tracking-[0.16em] text-accent">
+              <span className="pulse-dot size-1.5 rounded-full bg-accent" />
+              In progress
+            </span>
+          </h2>
         </Reveal>
 
         <Reveal delay={150} className="mt-12">
@@ -67,7 +73,7 @@ export function FullFilm({
                 </svg>
               </span>
               <span className="absolute bottom-4 left-4 font-mono text-[0.72rem] text-ink md:bottom-6 md:left-6 md:text-sm">
-                {playing && !hasVideo ? "Signal incoming" : <>All episodes, one cut · {runtime}</>}
+                {playing && !hasVideo ? "Signal incoming" : <>In progress · episodes so far, one cut · {runtime}</>}
               </span>
             </button>
           )}

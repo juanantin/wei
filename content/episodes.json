@@ -28,19 +28,19 @@
     "thumbnail": "/wei-assets/ep03.jpg",
     "video_url": "/episodes/ep03.mp4",
     "duration": "0:35",
-    "new": true,
+    "new": false,
     "locked": false,
     "unlock_at_holders": null
   },
   {
     "number": 4,
-    "title": "",
-    "description": "",
-    "thumbnail": "",
-    "video_url": "",
-    "duration": "",
-    "new": false,
-    "locked": true,
+    "title": "gm from Mars",
+    "description": "Sunrise over the solar farm. Breakfast from the ETH bowl. Wei wakes the colonist and heads for the hatch.",
+    "thumbnail": "/wei-assets/ep04.jpg",
+    "video_url": "/episodes/ep04.mp4",
+    "duration": "0:54",
+    "new": true,
+    "locked": false,
     "unlock_at_holders": null
   }
 ]

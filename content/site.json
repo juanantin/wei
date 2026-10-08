@@ -4,7 +4,7 @@
   "film": {
     "poster": "/wei-assets/film-poster.jpg",
     "video_url": "/episodes/film.mp4",
-    "runtime": "1:52"
+    "runtime": "3:31"
   },
   "links": {
     "buy": "https://app.uniswap.org/swap?chain=base&inputCurrency=NATIVE&outputCurrency=0xd47Bdd392deF5eEBD46A1d8ebb234D28A2087321",

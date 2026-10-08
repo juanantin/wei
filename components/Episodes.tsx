@@ -86,6 +86,8 @@ export function Episodes({ episodes }: { episodes: Episode[] }) {
   const { stats } = useStats();
   const holders = stats?.holders ?? null;
   const [playing, setPlaying] = useState<Episode | null>(null);
+  // 4 across when the count fills rows of 4, otherwise 3 across (5 → 3+2, 6 → 3+3)
+  const cols = episodes.length <= 4 || episodes.length % 4 === 0 ? 4 : 3;
 
   useEffect(() => {
     if (!playing) return;
@@ -108,7 +110,7 @@ export function Episodes({ episodes }: { episodes: Episode[] }) {
           <h2 className="title mt-5 text-[clamp(3rem,6.5vw,5.25rem)]">Episodes</h2>
         </Reveal>
 
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className={`mt-12 grid gap-4 sm:grid-cols-2 ${cols === 3 ? "lg:grid-cols-3" : "lg:grid-cols-4"}`}>
           {[...episodes]
             .sort((a, b) => a.number - b.number)
             .map((ep, i) => (

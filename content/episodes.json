@@ -39,6 +39,17 @@
     "thumbnail": "/wei-assets/ep04.jpg",
     "video_url": "/episodes/ep04.mp4",
     "duration": "0:54",
+    "new": false,
+    "locked": false,
+    "unlock_at_holders": null
+  },
+  {
+    "number": 5,
+    "title": "Listen to the dog, Cobie",
+    "description": "The rover's scanner locks on: TARGET: WEI. Wei tries to warn the colonist. Nobody listens. Outside, something waits by the hatch.",
+    "thumbnail": "/wei-assets/ep05.jpg",
+    "video_url": "/episodes/ep05.mp4",
+    "duration": "0:46",
     "new": true,
     "locked": false,
     "unlock_at_holders": null

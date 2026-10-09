@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-10-09T14:33:17.304Z",
+  "updatedAt": "2026-10-09T15:23:57.545Z",
   "synced": false,
   "cursor": 52328547,
-  "head": 52383497,
+  "head": 52384915,
   "holders": null,
   "holdersAboveMin": null,
   "feesCollected": 0.3488674616734072,
@@ -25,6 +25,7 @@
   },
   "rounds": 50,
   "walletPayments": 3864,
+  "daily": {},
   "lastPayout": {
     "block": 52308872,
     "time": 1791407091000,

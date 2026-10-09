@@ -56,7 +56,13 @@ for (const e of entries) {
 }
 for (const d of Object.values(days)) { d.paidToHolders = +d.paidToHolders.toFixed(4); d.feesIn = +d.feesIn.toFixed(4); }
 
-const result = { source: INDEX_URL, at: new Date().toISOString(), pages: first.pages, entries: entries.length, note: "Amounts as shown on the panel (rounded to 4 dp); days as the panel groups them.", days: Object.fromEntries(Object.entries(days).sort().reverse()) };
+const result = {
+  source: INDEX_URL, at: new Date().toISOString(), pages: first.pages, entries: entries.length,
+  note: "Amounts as shown on the panel (rounded to 4 dp); days as the panel groups them.",
+  days: Object.fromEntries(Object.entries(days).sort().reverse()),
+  // Newest first; used by scripts/announce.mjs to spot new payouts.
+  recent: entries.slice(0, 80),
+};
 
 console.log("\n===== FEED =====");
 console.log(`pages ${first.pages}, entries ${entries.length}`);

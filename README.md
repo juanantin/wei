@@ -41,6 +41,22 @@ The sandboxed dev environment can't reach Base, so every lookup runs on Actions 
 
 Every address and block in `scripts/config.mjs` was read from the network. Its `MISSING` list must be empty, or the indexer refuses to run. Scheduled crons can be delayed or dropped. To force a run, change `data/.index-trigger` and push.
 
+### Payout announcer (`scripts/announce.mjs`)
+
+Runs in `index.yml` right after the activity-feed probe:
+- **Telegram:** each batch of new payouts is posted with `bot/media/payout.mp4`, giving the ETH sent, the number of holders and today's running total.
+- **X:** once a day, a recap of yesterday's totals.
+
+Each channel stays off until its repository secrets exist (Settings → Secrets and variables → Actions):
+
+| Secret | Where to get it |
+|---|---|
+| `TELEGRAM_BOT_TOKEN` | @BotFather → /newbot. Add the bot to the channel or group as an admin that can post |
+| `TELEGRAM_CHAT_ID` | `@weithedog_portal` for a public channel, or the numeric `-100…` id for a private group |
+| `X_API_KEY`, `X_API_SECRET`, `X_ACCESS_TOKEN`, `X_ACCESS_SECRET` | developer.x.com → your app, with **Read and write** user-auth permissions, then generate the access token and secret |
+
+The first run only records the existing payouts, so the bot never posts history. `data/announce-state.json` remembers what was already posted.
+
 Optional: add a private Base RPC as the repository secret `RPC_URL`. Otherwise the jobs use `https://mainnet.base.org`.
 
 `vercel.json` skips Vercel builds for commits that only touch `data/`.

@@ -9,6 +9,7 @@ on:
       - scripts/index-rewards.mjs
       - scripts/panel-probe.mjs
       - scripts/feed-probe.mjs
+      - scripts/announce.mjs
       - scripts/config.mjs
       - scripts/lib.mjs
       - .github/workflows/index.yml
@@ -37,6 +38,20 @@ jobs:
       - name: Activity feed (per-day totals)
         continue-on-error: true
         run: node scripts/feed-probe.mjs
+      # Posts new payouts to Telegram and a daily recap to X. Each channel is
+      # skipped until its secrets exist; the first run only records state.
+      - name: Announce payouts
+        continue-on-error: true
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
+        run: |
+          if [ -n "$X_API_KEY" ]; then npm i --prefix .bot --no-save --no-package-lock twitter-api-v2@1 >/dev/null 2>&1; fi
+          node scripts/announce.mjs
       - name: Chain
         env:
           RPC_URL: ${{ secrets.RPC_URL }}

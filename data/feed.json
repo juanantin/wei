@@ -1,16 +1,16 @@
 {
   "source": "https://www.stockify.finance/indices/0xa0cb7a7a4beb0b4bb819637a961c1dfe9bee3507",
-  "at": "2026-10-09T23:11:02.251Z",
+  "at": "2026-10-09T23:18:49.487Z",
   "pages": 14,
-  "entries": 139,
+  "entries": 140,
   "note": "Amounts as shown on the panel (rounded to 4 dp); days as the panel groups them.",
   "days": {
     "2026-10-09": {
       "paidToHolders": 0.0897,
-      "feesIn": 0.0994,
+      "feesIn": 0.1038,
       "payouts": 16,
       "holderPayments": 1696,
-      "feeEvents": 14
+      "feeEvents": 15
     },
     "2026-10-08": {
       "paidToHolders": 0.0285,
@@ -56,6 +56,13 @@
     }
   },
   "recent": [
+    {
+      "day": "2026-10-09",
+      "kind": "Fees in",
+      "amount": 0.0044,
+      "holders": null,
+      "tx": "0x6763593f235562de259226081d865da8ddcea979353d0db9271676be43a81278"
+    },
     {
       "day": "2026-10-09",
       "kind": "Fees in",
@@ -608,13 +615,6 @@
       "amount": 0.0045,
       "holders": null,
       "tx": "0x1cea4035ca02050da11d084b25500e0053e44cc8e373c7e4cc7221a6d356c1b9"
-    },
-    {
-      "day": "2026-10-04",
-      "kind": "Fees in",
-      "amount": 0.0045,
-      "holders": null,
-      "tx": "0x14a677ef748370f63b5f4298aec88f42ac5ffd292afcac799c43fd24a5721026"
     }
   ]
 }

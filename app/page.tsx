@@ -21,7 +21,7 @@ export default function Home() {
 
   return (
     <StatsProvider>
-      <Nav ticker={ticker} buyUrl={site.links.buy} xUrl={site.links.x} chartUrl={site.links.chart} />
+      <Nav ticker={ticker} buyUrl={site.links.buy} xUrl={site.links.x} chartUrl={site.links.chart} tgUrl={site.links.telegram} />
       <main>
         <Hero links={site.links} />
         <Lore tweetUrl={site.lore_tweet} />

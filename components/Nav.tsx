@@ -19,6 +19,14 @@ function XIcon() {
   );
 }
 
+function TelegramIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="size-[17px]" fill="currentColor" aria-hidden>
+      <path d="M21.94 4.3 18.6 20.03c-.25 1.11-.91 1.39-1.84.86l-5.08-3.74-2.45 2.36c-.27.27-.5.5-1.02.5l.36-5.18 9.43-8.52c.41-.36-.09-.57-.64-.2L5.71 13.44.69 11.87c-1.09-.34-1.11-1.09.23-1.62L20.5 2.7c.91-.33 1.7.21 1.44 1.6Z" />
+    </svg>
+  );
+}
+
 function ChartIcon() {
   return (
     <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
@@ -31,7 +39,7 @@ function ChartIcon() {
 const iconBtn =
   "flex size-10 items-center justify-center rounded-[3px] border border-ink/20 text-ink/85 transition hover:border-accent hover:text-accent";
 
-function Socials({ xUrl, chartUrl }: { xUrl: string; chartUrl: string }) {
+function Socials({ xUrl, chartUrl, tgUrl }: { xUrl: string; chartUrl: string; tgUrl: string }) {
   return (
     <>
       {chartUrl && (
@@ -44,6 +52,11 @@ function Socials({ xUrl, chartUrl }: { xUrl: string; chartUrl: string }) {
           <XIcon />
         </a>
       )}
+      {tgUrl && (
+        <a href={tgUrl} target="_blank" rel="noopener noreferrer" aria-label="WEI on Telegram" title="Telegram" className={iconBtn}>
+          <TelegramIcon />
+        </a>
+      )}
     </>
   );
 }
@@ -53,11 +66,13 @@ export function Nav({
   buyUrl,
   xUrl,
   chartUrl,
+  tgUrl,
 }: {
   ticker: string;
   buyUrl: string;
   xUrl: string;
   chartUrl: string;
+  tgUrl: string;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -82,7 +97,7 @@ export function Nav({
             </a>
           ))}
           <div className="-mr-1 flex items-center gap-2">
-            <Socials xUrl={xUrl} chartUrl={chartUrl} />
+            <Socials xUrl={xUrl} chartUrl={chartUrl} tgUrl={tgUrl} />
           </div>
           <div className="flex flex-col items-center gap-1">
             <a
@@ -98,7 +113,7 @@ export function Nav({
         </nav>
 
         <div className="flex items-center gap-2 lg:hidden">
-          <Socials xUrl={xUrl} chartUrl={chartUrl} />
+          <Socials xUrl={xUrl} chartUrl={chartUrl} tgUrl={tgUrl} />
         <button
           type="button"
           aria-label={open ? "Close menu" : "Open menu"}

@@ -1,6 +1,17 @@
 // Shared helpers for the data scripts. Node 20+ (global fetch), no dependencies.
 export const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-export const RPC_URL = process.env.RPC_URL || "https://mainnet.base.org";
+// Free public Base endpoints rate-limit or refuse eth_getLogs without warning, so
+// rotate through several. A private RPC_URL secret, if set, is always tried first.
+export const RPC_URLS = [
+  process.env.RPC_URL,
+  "https://mainnet.base.org",
+  "https://base-rpc.publicnode.com",
+  "https://base.llamarpc.com",
+  "https://1rpc.io/base",
+  "https://base.drpc.org",
+].filter(Boolean);
+export const RPC_URL = RPC_URLS[0];
+let rpcIdx = 0;
 export const BLOCKSCOUT = "https://base.blockscout.com";
 
 export async function getJson(url, { tries = 4, init } = {}) {
@@ -20,22 +31,29 @@ export async function getJson(url, { tries = 4, init } = {}) {
 }
 
 let rpcId = 0;
+export let lastRpcError = null;
 export async function rpc(method, params, tries = 5) {
   let last;
-  for (let i = 0; i < tries; i++) {
+  for (let i = 0; i < tries + RPC_URLS.length; i++) {
+    const url = RPC_URLS[rpcIdx % RPC_URLS.length];
     try {
-      const res = await fetch(RPC_URL, {
+      const res = await fetch(url, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ jsonrpc: "2.0", id: ++rpcId, method, params }),
         signal: AbortSignal.timeout(20_000),
       });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const j = await res.json();
       if (j.error) throw new Error(`${method}: ${j.error.message}`);
       return j.result;
     } catch (e) {
-      last = e;
-      await sleep(800 * 2 ** i);
+      last = new Error(`${url.replace(/\/\/([^/]*@)/, "//")} ${e.message}`);
+      lastRpcError = last.message;
+      // A range-too-large error is about the request, not the endpoint: let the caller shrink it.
+      if (method === "eth_getLogs" && /block range|range is too (large|wide)|too many blocks|range.*exceed|exceed.*range|max.*blocks|10000 blocks|query returned more than/i.test(e.message) && !/rate/i.test(e.message)) throw last;
+      rpcIdx++; // rotate to the next endpoint
+      await sleep(400 * Math.min(8, 2 ** i));
     }
   }
   throw last;

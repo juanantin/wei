@@ -8,7 +8,7 @@
 //      non-holder recipient so a new non-holder destination shows up in the log.
 // Writes data/rewards.json. Refuses to run while config MISSING is non-empty.
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
-import { rpc, sleep, fmtUnits } from "./lib.mjs";
+import { rpc, sleep, fmtUnits, lastRpcError } from "./lib.mjs";
 import { MISSING, TOKEN, TOKEN_DECIMALS, POOL, INDEX, REWARD_TOKEN, REWARD_DECIMALS, PROTOCOL_RECIPIENT, START_BLOCK } from "./config.mjs";
 
 if (MISSING.length) {
@@ -30,7 +30,7 @@ const MIN_HOLDING_RAW = BigInt(process.env.MIN_HOLDING || "10000") * 10n ** BigI
 const fresh = {
   cursor: START_BLOCK - 1, feesInRaw: "0", paidOutRaw: "0", otherOutRaw: "0", otherOut: {}, feeTransfers: 0, payoutTransfers: 0,
   rounds: 0, lastRoundTx: null, lastPayoutBlock: null, lastPayoutRaw: "0", lastPayoutHolders: 0,
-  lastFeeBlock: null, balances: {},
+  lastFeeBlock: null, balances: {}, daily: {},
 };
 // A present file is trusted, so it must be seeded with the right cursor (START_BLOCK - 1).
 const state = existsSync(STATE) ? { ...fresh, ...JSON.parse(readFileSync(STATE, "utf8")) } : fresh;
@@ -41,6 +41,22 @@ if (state.cursor < START_BLOCK - 1) {
 const bal = new Map(Object.entries(state.balances).map(([k, v]) => [k, BigInt(v)]));
 let feesIn = BigInt(state.feesInRaw), paidOut = BigInt(state.paidOutRaw), otherOut = BigInt(state.otherOutRaw);
 const otherByRecipient = new Map(Object.entries(state.otherOut).map(([k, v]) => [k, BigInt(v)]));
+state.daily ??= {};
+
+// Per-UTC-day buckets (holder payouts exclude the protocol's cut, same as the totals).
+const blockTime = new Map();
+async function dayOf(blockHex) {
+  if (!blockTime.has(blockHex)) {
+    const b = await rpc("eth_getBlockByNumber", [blockHex, false]);
+    blockTime.set(blockHex, Number(BigInt(b.timestamp)) * 1000);
+  }
+  return new Date(blockTime.get(blockHex)).toISOString().slice(0, 10);
+}
+function bump(day, key, v) {
+  const d = (state.daily[day] ??= { paidRaw: "0", feesRaw: "0", payments: 0, txs: [] });
+  if (key === "paid") { d.paidRaw = (BigInt(d.paidRaw) + v).toString(); d.payments++; }
+  if (key === "fees") d.feesRaw = (BigInt(d.feesRaw) + v).toString();
+}
 
 async function logs(address, topics, from, to) {
   return rpc("eth_getLogs", [{ address, topics, fromBlock: "0x" + from.toString(16), toBlock: "0x" + to.toString(16) }], 3);
@@ -64,11 +80,11 @@ while (state.cursor < head && Date.now() - started < TIME_BUDGET_MS) {
   } catch (e) {
     if (span > 500) {
       span = Math.max(500, Math.floor(span / 2));
-      console.log(`window ${from}-${to} failed (${e.message.slice(0, 120)}); span -> ${span}`);
+      console.log(`window ${from}-${to} failed (${e.message.slice(0, 160)}); span -> ${span}`);
       await sleep(2000);
       continue;
     }
-    console.log(`giving up this run at ${from}: ${e.message}`);
+    console.log(`giving up this run at ${from}: ${e.message} | last rpc error: ${lastRpcError}`);
     break;
   }
 
@@ -79,12 +95,19 @@ while (state.cursor < head && Date.now() - started < TIME_BUDGET_MS) {
   }
   for (const l of inLogs) {
     feesIn += BigInt(l.data);
+    bump(await dayOf(l.blockNumber), "fees", BigInt(l.data));
     state.feeTransfers++;
     state.lastFeeBlock = Number(BigInt(l.blockNumber));
   }
   for (const l of outLogs) {
     const v = BigInt(l.data);
     const to = unpad(l.topics[2]);
+    if (to !== PROTOCOL_RECIPIENT) {
+      const day = await dayOf(l.blockNumber);
+      bump(day, "paid", v);
+      const d = state.daily[day];
+      if (!d.txs.includes(l.transactionHash)) d.txs.push(l.transactionHash);
+    }
     if (!((bal.get(to) ?? 0n) > 0n) || to === POOL) {
       otherOut += v;
       otherByRecipient.set(to, (otherByRecipient.get(to) ?? 0n) + v);
@@ -151,6 +174,15 @@ const result = {
   ),
   rounds: state.rounds,
   walletPayments: state.payoutTransfers,
+  // ETH paid to holders per UTC day (protocol cut excluded). Days fully scanned only once synced.
+  daily: Object.fromEntries(
+    Object.entries(state.daily).sort().slice(-14).map(([day, d]) => [day, {
+      paidToHolders: Number(fmtUnits(d.paidRaw, REWARD_DECIMALS)),
+      feesCollected: Number(fmtUnits(d.feesRaw, REWARD_DECIMALS)),
+      payments: d.payments,
+      payoutTxs: d.txs.length,
+    }]),
+  ),
   lastPayout: state.lastPayoutBlock
     ? { block: state.lastPayoutBlock, time: lastPayoutTime, amount: Number(fmtUnits(state.lastPayoutRaw, REWARD_DECIMALS)), holders: state.lastPayoutHolders }
     : null,

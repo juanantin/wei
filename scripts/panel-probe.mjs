@@ -14,12 +14,18 @@ export function visibleText(html) {
     .trim();
 }
 
-const num = (s) => (s == null ? null : Number(String(s).replace(/,/g, "")));
+// Accepts "1,234.5" and abbreviated "1.02K" / "3.4M" / "1.1B".
+const num = (s) => {
+  if (s == null) return null;
+  const m = String(s).replace(/,/g, "").match(/^([\d.]+)([KMB])?$/i);
+  if (!m) return null;
+  return Number(m[1]) * ({ K: 1e3, M: 1e6, B: 1e9 }[(m[2] || "").toUpperCase()] ?? 1);
+};
 
 export function parsePanel(text) {
   const m = (re) => text.match(re);
-  const paid = m(/Paid to holders \$([\d,.]+) ([\d.]+) ([A-Za-z]+)/);
-  const fees = m(/Fees collected \$([\d,.]+) ([\d.]+) ([A-Za-z]+)/);
+  const paid = m(/Paid to holders \$([\d,.]+[KMB]?) ([\d.]+) ([A-Za-z]+)/);
+  const fees = m(/Fees collected \$([\d,.]+[KMB]?) ([\d.]+) ([A-Za-z]+)/);
   const rounds = m(/Rounds paid ([\d,]+)/);
   const payments = m(/([\d,]+) wallet payments/);
   const waiting = m(/Waiting to be invested ([\d.]+) ([A-Za-z]+)/);

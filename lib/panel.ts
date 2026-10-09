@@ -20,11 +20,17 @@ export function visibleText(html: string) {
     .trim();
 }
 
-const num = (s?: string | null) => (s == null ? null : Number(s.replace(/,/g, "")));
+// Accepts "1,234.5" and abbreviated "1.02K" / "3.4M" / "1.1B".
+const num = (s?: string | null) => {
+  if (s == null) return null;
+  const m = s.replace(/,/g, "").match(/^([\d.]+)([KMB])?$/i);
+  if (!m) return null;
+  return Number(m[1]) * ({ K: 1e3, M: 1e6, B: 1e9 } as Record<string, number>)[(m[2] || "").toUpperCase()] || Number(m[1]);
+};
 
 export function parsePanel(text: string): PanelFigures {
-  const paid = text.match(/Paid to holders \$([\d,.]+) ([\d.]+) ([A-Za-z]+)/);
-  const fees = text.match(/Fees collected \$([\d,.]+) ([\d.]+) ([A-Za-z]+)/);
+  const paid = text.match(/Paid to holders \$([\d,.]+[KMB]?) ([\d.]+) ([A-Za-z]+)/);
+  const fees = text.match(/Fees collected \$([\d,.]+[KMB]?) ([\d.]+) ([A-Za-z]+)/);
   const rounds = text.match(/Rounds paid ([\d,]+)/);
   const last = text.match(/Paid out ([\d.]+) ([A-Za-z]+) to ([\d,]+) holder ?s? (\d+)([smhdw]) ago/);
   return {

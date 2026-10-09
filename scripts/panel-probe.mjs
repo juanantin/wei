@@ -55,14 +55,17 @@ export function parsePanel(text) {
 export async function probePanel() {
   const res = await fetch(INDEX_URL, { headers: { "user-agent": "Mozilla/5.0 wei-dashboard" }, signal: AbortSignal.timeout(20_000) });
   if (!res.ok) throw new Error(`panel HTTP ${res.status}`);
-  const text = visibleText(await res.text());
-  return { text, figures: parsePanel(text) };
+  const html = await res.text();
+  const text = visibleText(html);
+  return { html, text, figures: parsePanel(text) };
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
-  const { text, figures } = await probePanel();
+  const { html, text, figures } = await probePanel();
   mkdirSync("data", { recursive: true });
   writeFileSync("data/panel.txt", text + "\n");
+  // Raw HTML kept so the activity feed's pagination can be inspected.
+  writeFileSync("data/panel.html", html);
   const ok = figures.paidToHolders != null && figures.feesCollected != null;
   const prev = existsSync("data/panel.json") ? JSON.parse(readFileSync("data/panel.json", "utf8")) : null;
   if (ok) writeFileSync("data/panel.json", JSON.stringify({ source: INDEX_URL, at: new Date().toISOString(), ...figures }, null, 2) + "\n");

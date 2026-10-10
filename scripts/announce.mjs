@@ -98,7 +98,12 @@ await tgCheck();
 
 // ---------- New payouts → Telegram ----------
 const payouts = (feed.recent || []).filter((e) => /^Paid out/i.test(e.kind) && e.tx);
-const fresh = payouts.filter((e) => !done.has(e.tx));
+let fresh = payouts.filter((e) => !done.has(e.tx));
+// Manual "test post" run: re-post the latest real payout once so you can see the bot work.
+if (process.env.TEST_POST === "true" && !fresh.length && payouts.length) {
+  log("test post: re-posting latest payout");
+  fresh = [payouts[0]];
+}
 
 if (firstRun) {
   log(`first run: seeding ${payouts.length} existing payouts, nothing posted`);

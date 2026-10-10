@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: "*/15 * * * *"
   workflow_dispatch:
+    inputs:
+      test_post:
+        description: "Test post: re-post the latest payout to Telegram"
+        type: boolean
+        default: false
   push:
     paths:
       - scripts/index-rewards.mjs
@@ -49,6 +54,7 @@ jobs:
           X_API_SECRET: ${{ secrets.X_API_SECRET }}
           X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
           X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
+          TEST_POST: ${{ inputs.test_post }}
         run: |
           if [ -n "$X_API_KEY" ]; then npm i --prefix .bot --no-save --no-package-lock twitter-api-v2@1 >/dev/null 2>&1; fi
           node scripts/announce.mjs

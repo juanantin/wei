@@ -19,11 +19,19 @@ const LINKS = { tg: "t.me/weithedog_portal", site: process.env.SITE_URL || "" };
 const DRY = process.env.DRY_RUN === "1";
 
 if (!existsSync(FEED)) { console.log("no feed.json yet"); process.exit(0); }
+const fmt = (n) => (n >= 0.01 ? n.toFixed(4) : n.toFixed(5)).replace(/0+$/, "").replace(/\.$/, "");
 const feed = JSON.parse(readFileSync(FEED, "utf8"));
+// All-time ETH paid to holders: the panel's own figure, else the sum of the feed's days.
+const panel = existsSync("data/panel.json") ? JSON.parse(readFileSync("data/panel.json", "utf8")) : null;
+const allTime = {
+  eth: panel?.paidToHolders ?? Object.values(feed.days || {}).reduce((a, d) => a + d.paidToHolders, 0),
+  usd: panel?.paidToHoldersUsd ?? null,
+};
+const usdFmt = (n) => (n >= 1000 ? `$${(n / 1000).toFixed(2).replace(/\.?0+$/, "")}K` : `$${Math.round(n)}`);
+const allTimeLine = allTime.eth ? `All-time sent home: ${fmt(allTime.eth)} ETH${allTime.usd ? ` (${usdFmt(allTime.usd)})` : ""}` : null;
 const firstRun = !existsSync(STATE);
 const state = firstRun ? { announced: [], lastRecap: null } : JSON.parse(readFileSync(STATE, "utf8"));
 const done = new Set(state.announced);
-const fmt = (n) => (n >= 0.01 ? n.toFixed(4) : n.toFixed(5)).replace(/0+$/, "").replace(/\.$/, "");
 const int = (n) => n.toLocaleString("en-US");
 const today = new Date().toISOString().slice(0, 10);
 const yesterday = new Date(Date.now() - 864e5).toISOString().slice(0, 10);
@@ -86,6 +94,7 @@ if (firstRun) {
     "",
     `<b>${fmt(eth)} ETH</b> just sent to <b>${int(wallets)}</b> $WEI holders.`,
     d ? `Today so far: ${fmt(d.paidToHolders)} ETH · ${int(d.holderPayments)} wallet payments` : null,
+    allTimeLine ? `<b>${allTimeLine}</b>` : null,
     "",
     "No claiming. No staking. Just hold 10,000+ $WEI.",
     `<a href="https://basescan.org/tx/${fresh[0].tx}">View on Basescan</a>`,
@@ -105,10 +114,11 @@ if (!firstRun && state.lastRecap !== yesterday && y && new Date().getUTCHours() 
     "🐕📡 Transfer home complete.",
     "",
     `Yesterday Wei sent ${fmt(y.paidToHolders)} ETH to $WEI holders: ${int(y.payouts)} payouts, ${int(y.holderPayments)} wallet payments.`,
+    allTimeLine ? `${allTimeLine}.` : null,
     "",
     "No claiming. No staking. Just hold.",
     LINKS.tg,
-  ].join("\n");
+  ].filter((l) => l !== null).join("\n");
   await xPost(text);
   state.lastRecap = yesterday;
 }

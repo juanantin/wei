@@ -160,5 +160,25 @@ if (!firstRun && state.lastRecap !== yesterday && y && new Date().getUTCHours() 
 }
 if (firstRun) state.lastRecap = yesterday;
 
+// One-shot "today so far" recap → X, fired by pushing data/.x-post-now.
+// Marks today as recapped so tonight's midnight recap doesn't repeat it.
+if (existsSync("data/.x-post-now")) {
+  unlinkSync("data/.x-post-now");
+  const t = feed.days?.[today];
+  if (t) {
+    const text = [
+      "Transfer home in progress. 🐕📡",
+      "",
+      `Today so far Wei has sent ${fmt(t.paidToHolders)} ETH to $WEI holders: ${int(t.payouts)} payouts, ${int(t.holderPayments)} wallet payments.`,
+      allTimeLine ? `${allTimeLine}.` : null,
+      "",
+      "No claiming. No staking. Just hold.",
+      LINKS.tg,
+    ].filter((l) => l !== null).join("\n");
+    await xPost(text);
+    state.lastRecap = today;
+  } else log("x post now: no data for today");
+}
+
 state.announced = [...done].slice(-500);
 writeFileSync(STATE, JSON.stringify(state, null, 2) + "\n");

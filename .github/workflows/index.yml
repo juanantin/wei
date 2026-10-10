@@ -20,6 +20,7 @@ on:
       - .github/workflows/index.yml
       - data/.index-trigger
       - data/.test-post
+      - data/.x-post-now
 permissions:
   contents: write
   actions: write # lets the fallback below start the next run

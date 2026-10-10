@@ -115,7 +115,7 @@ if (firstRun) {
   const wallets = fresh.reduce((a, e) => a + (e.holders || 0), 0);
   const d = feed.days?.[today];
   const caption = [
-    "🐕📡 <b>ETH SENT HOME</b>",
+    "<b>ETH SENT HOME</b> 🐕📡",
     "",
     `<b>${fmt(eth)} ETH</b> just sent to <b>${int(wallets)}</b> $WEI holders.`,
     d ? `Today so far: ${fmt(d.paidToHolders)} ETH · ${int(d.holderPayments)} wallet payments` : null,

@@ -1,6 +1,6 @@
 {
   "source": "https://www.stockify.finance/indices/0xa0cb7a7a4beb0b4bb819637a961c1dfe9bee3507",
-  "at": "2026-10-10T04:57:00.904Z",
+  "at": "2026-10-10T08:41:01.442Z",
   "paidToHoldersUsd": 1100,
   "paidToHolders": 0.4414,
   "feesCollectedUsd": 1220,
@@ -15,7 +15,7 @@
   "lastPayout": {
     "amount": 0.0039,
     "holders": 72,
-    "agoValue": 1,
+    "agoValue": 5,
     "agoUnit": "h"
   }
 }

@@ -92,6 +92,18 @@ async function xPost(text) {
   }
   const r = await client.v2.tweet(mediaId ? { text, media: { media_ids: [mediaId] } } : { text });
   log("x: posted", r.data?.id);
+  if (r.data?.id) await tgText(`New post on X 🐕📡\nhttps://x.com/Weithedog/status/${r.data.id}`);
+  return r.data?.id;
+}
+
+async function tgText(text) {
+  if (!TG.token || !TG.chat || DRY) return;
+  const res = await fetch(`https://api.telegram.org/bot${TG.token}/sendMessage`, {
+    method: "POST", headers: { "content-type": "application/json" },
+    body: JSON.stringify({ chat_id: TG.chat, text }),
+  });
+  const j = await res.json();
+  log(j.ok ? "telegram: x link posted" : `telegram: x link failed: ${j.description}`);
 }
 
 await tgCheck();

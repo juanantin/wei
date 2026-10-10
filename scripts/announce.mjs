@@ -161,7 +161,7 @@ if (!firstRun && state.lastRecap !== yesterday && y && new Date().getUTCHours() 
   const text = [
     "Transfer home complete. 🐕📡",
     "",
-    `Yesterday Wei sent ${fmt(y.paidToHolders)} ETH to $WEI holders: ${int(y.payouts)} payouts, ${int(y.holderPayments)} wallet payments.`,
+    `In the last 24h Wei sent ${fmt(y.paidToHolders)} ETH to $WEI holders: ${int(y.payouts)} payouts, ${int(y.holderPayments)} wallet payments.`,
     allTimeLine ? `${allTimeLine}.` : null,
     "",
     "No claiming. No staking. Just hold.",

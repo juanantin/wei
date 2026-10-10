@@ -1,10 +1,17 @@
 {
   "source": "https://www.stockify.finance/indices/0xa0cb7a7a4beb0b4bb819637a961c1dfe9bee3507",
-  "at": "2026-10-09T23:53:26.784Z",
-  "pages": 14,
-  "entries": 140,
+  "at": "2026-10-10T04:57:08.995Z",
+  "pages": 15,
+  "entries": 143,
   "note": "Amounts as shown on the panel (rounded to 4 dp); days as the panel groups them.",
   "days": {
+    "2026-10-10": {
+      "paidToHolders": 0.0123,
+      "feesIn": 0.0048,
+      "payouts": 2,
+      "holderPayments": 222,
+      "feeEvents": 1
+    },
     "2026-10-09": {
       "paidToHolders": 0.0897,
       "feesIn": 0.1038,
@@ -56,6 +63,27 @@
     }
   },
   "recent": [
+    {
+      "day": "2026-10-10",
+      "kind": "Paid out",
+      "amount": 0.0039,
+      "holders": 72,
+      "tx": "0x7046e751638c648a5a33f04b2015d6054ecf9ecc47a71f914f8ba04b2bf441e6"
+    },
+    {
+      "day": "2026-10-10",
+      "kind": "Paid out",
+      "amount": 0.0084,
+      "holders": 150,
+      "tx": "0xc0fec268f4916c9480808842849ddc4e568d988a87c149f7c9d204eb0aaf55e3"
+    },
+    {
+      "day": "2026-10-10",
+      "kind": "Fees in",
+      "amount": 0.0048,
+      "holders": null,
+      "tx": "0x52dcbf9b4d241ededd5c05bb28daee9894510297013fdf6eb57ede78c9e5e464"
+    },
     {
       "day": "2026-10-09",
       "kind": "Fees in",
@@ -594,27 +622,6 @@
       "amount": 0.0054,
       "holders": null,
       "tx": "0x3b4e21880f0f765d1e8db5e9be3bd756d8263381cd9be28e0716b24abf1a3d99"
-    },
-    {
-      "day": "2026-10-04",
-      "kind": "Fees in",
-      "amount": 0.0047,
-      "holders": null,
-      "tx": "0x6b285f7359d286dfbfc388bd21a03cd77d9fd88b4865ca88611f52c563300dfb"
-    },
-    {
-      "day": "2026-10-04",
-      "kind": "Paid out",
-      "amount": 0.0081,
-      "holders": 114,
-      "tx": "0x24e8a01cfcc3f977f99ced6a0db5ea91837ac8d6ac789b6b9ed27f90b0678d46"
-    },
-    {
-      "day": "2026-10-04",
-      "kind": "Fees in",
-      "amount": 0.0045,
-      "holders": null,
-      "tx": "0x1cea4035ca02050da11d084b25500e0053e44cc8e373c7e4cc7221a6d356c1b9"
     }
   ]
 }

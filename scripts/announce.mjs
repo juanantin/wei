@@ -4,7 +4,7 @@
 // Source: data/feed.json (the Stockify index's own activity feed).
 // State:  data/announce-state.json (committed) so nothing is posted twice.
 // Each channel is skipped unless its secrets are set. First run only seeds state.
-import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync, unlinkSync } from "node:fs";
 import { createRequire } from "node:module";
 
 const FEED = "data/feed.json";
@@ -100,7 +100,10 @@ await tgCheck();
 const payouts = (feed.recent || []).filter((e) => /^Paid out/i.test(e.kind) && e.tx);
 let fresh = payouts.filter((e) => !done.has(e.tx));
 // Manual "test post" run: re-post the latest real payout once so you can see the bot work.
-if (process.env.TEST_POST === "true" && !fresh.length && payouts.length) {
+// Also fires once when data/.test-post is pushed (the file is removed afterwards).
+const testFlag = existsSync("data/.test-post");
+if (testFlag) unlinkSync("data/.test-post");
+if ((process.env.TEST_POST === "true" || testFlag) && !fresh.length && payouts.length) {
   log("test post: re-posting latest payout");
   fresh = [payouts[0]];
 }

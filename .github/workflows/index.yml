@@ -19,6 +19,7 @@ on:
       - scripts/lib.mjs
       - .github/workflows/index.yml
       - data/.index-trigger
+      - data/.test-post
 permissions:
   contents: write
   actions: write # lets the fallback below start the next run

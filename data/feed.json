@@ -1,8 +1,8 @@
 {
   "source": "https://www.stockify.finance/indices/0xa0cb7a7a4beb0b4bb819637a961c1dfe9bee3507",
-  "at": "2026-10-10T22:05:52.816Z",
+  "at": "2026-10-10T22:14:40.211Z",
   "pages": 15,
-  "entries": 147,
+  "entries": 148,
   "note": "Amounts as shown on the panel (rounded to 4 dp); days as the panel groups them.",
   "days": {
     "2026-10-10": {
@@ -49,10 +49,10 @@
     },
     "2026-10-04": {
       "paidToHolders": 0.165,
-      "feesIn": 0.1788,
+      "feesIn": 0.1833,
       "payouts": 25,
       "holderPayments": 2360,
-      "feeEvents": 35
+      "feeEvents": 36
     },
     "2026-10-03": {
       "paidToHolders": 0.0832,

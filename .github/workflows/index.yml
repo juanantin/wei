@@ -89,10 +89,8 @@ jobs:
           git diff --cached --quiet && exit 0
           git commit -m "data: index snapshot [skip ci]"
           for i in 1 2 3; do git pull --rebase -q && git push && break; sleep 5; done
-      # Scheduled crons can be delayed for hours or dropped. If none has run in
-      # the last 30 min, start the next run ourselves after a short pause.
-      # (workflow_dispatch is the one event GITHUB_TOKEN may trigger.) Once the
-      # cron is firing, this stays dormant.
+      # Start the next run ourselves after a short pause
+      # (workflow_dispatch is the one event GITHUB_TOKEN may trigger).
       - name: Keep the chain alive
         # GitHub's cron can go silent for hours, so every run queues the next one.
         # The concurrency group keeps at most one run waiting, so chains never pile up.

@@ -38,6 +38,21 @@ const yesterday = new Date(Date.now() - 864e5).toISOString().slice(0, 10);
 const log = (...a) => console.log(...a);
 
 // ---------- Telegram ----------
+// Read-only health check: can the bot see the chat, and may it post there?
+async function tgCheck() {
+  if (!TG.token || !TG.chat) return;
+  try {
+    const me = await (await fetch(`https://api.telegram.org/bot${TG.token}/getMe`)).json();
+    const chat = await (await fetch(`https://api.telegram.org/bot${TG.token}/getChat?chat_id=${encodeURIComponent(TG.chat)}`)).json();
+    const member = me.ok
+      ? await (await fetch(`https://api.telegram.org/bot${TG.token}/getChatMember?chat_id=${encodeURIComponent(TG.chat)}&user_id=${me.result.id}`)).json()
+      : null;
+    const m = member?.result;
+    log(`telegram check: bot @${me.result?.username ?? "?"} · chat ${chat.ok ? `"${chat.result.title}" (${chat.result.type})` : `ERROR ${chat.description}`} · status ${m?.status ?? member?.description} · can_post ${m?.status === "administrator" || m?.status === "creator" || m?.can_send_messages !== false}`);
+  } catch (e) {
+    log("telegram check failed:", e.message);
+  }
+}
 async function tgPost(caption) {
   if (!TG.token || !TG.chat) return log("telegram: no secrets, skipped");
   if (DRY) return log("telegram (dry run):\n" + caption);
@@ -78,6 +93,8 @@ async function xPost(text) {
   const r = await client.v2.tweet(mediaId ? { text, media: { media_ids: [mediaId] } } : { text });
   log("x: posted", r.data?.id);
 }
+
+await tgCheck();
 
 // ---------- New payouts → Telegram ----------
 const payouts = (feed.recent || []).filter((e) => /^Paid out/i.test(e.kind) && e.tx);

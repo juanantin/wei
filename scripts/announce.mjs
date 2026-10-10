@@ -136,7 +136,7 @@ for (const e of payouts) done.add(e.tx);
 const y = feed.days?.[yesterday];
 if (!firstRun && state.lastRecap !== yesterday && y && new Date().getUTCHours() >= 0) {
   const text = [
-    "🐕📡 Transfer home complete.",
+    "Transfer home complete. 🐕📡",
     "",
     `Yesterday Wei sent ${fmt(y.paidToHolders)} ETH to $WEI holders: ${int(y.payouts)} payouts, ${int(y.holderPayments)} wallet payments.`,
     allTimeLine ? `${allTimeLine}.` : null,

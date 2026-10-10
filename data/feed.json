@@ -1,16 +1,16 @@
 {
   "source": "https://www.stockify.finance/indices/0xa0cb7a7a4beb0b4bb819637a961c1dfe9bee3507",
-  "at": "2026-10-10T11:05:50.746Z",
+  "at": "2026-10-10T16:14:59.670Z",
   "pages": 15,
-  "entries": 144,
+  "entries": 147,
   "note": "Amounts as shown on the panel (rounded to 4 dp); days as the panel groups them.",
   "days": {
     "2026-10-10": {
-      "paidToHolders": 0.0123,
-      "feesIn": 0.0094,
-      "payouts": 2,
-      "holderPayments": 222,
-      "feeEvents": 2
+      "paidToHolders": 0.0211,
+      "feesIn": 0.0146,
+      "payouts": 4,
+      "holderPayments": 445,
+      "feeEvents": 3
     },
     "2026-10-09": {
       "paidToHolders": 0.0897,
@@ -63,6 +63,27 @@
     }
   },
   "recent": [
+    {
+      "day": "2026-10-10",
+      "kind": "Paid out",
+      "amount": 0.0028,
+      "holders": 73,
+      "tx": "0x22ca6c589edfd0d2f5efd5e85fc039a06d8d596897733607a7d6ead5f7a5217e"
+    },
+    {
+      "day": "2026-10-10",
+      "kind": "Paid out",
+      "amount": 0.006,
+      "holders": 150,
+      "tx": "0xafe778f77962bbeb94d611b051b757c1c8fdc68d39d1b956a1ee406044a92a33"
+    },
+    {
+      "day": "2026-10-10",
+      "kind": "Fees in",
+      "amount": 0.0052,
+      "holders": null,
+      "tx": "0x3ff63a161c2eb10512a5d3d438be4e6d8905df92381e87c7887ff15c4b88426c"
+    },
     {
       "day": "2026-10-10",
       "kind": "Fees in",
@@ -601,27 +622,6 @@
       "amount": 0.0089,
       "holders": 120,
       "tx": "0x183d11b2e111c5737dbc2f0952006ec660580642edf546c6bb234f440ad64680"
-    },
-    {
-      "day": "2026-10-04",
-      "kind": "Fees in",
-      "amount": 0.0043,
-      "holders": null,
-      "tx": "0x8946fab99db2e8de7466dd10954c4397ecac3e22350d3ea49190dfdf0d5d0a00"
-    },
-    {
-      "day": "2026-10-04",
-      "kind": "Fees in",
-      "amount": 0.0056,
-      "holders": null,
-      "tx": "0x9e0a5e20277a47f341277cca0ff71fad0d83971fa885d2a714d3b59af51516c6"
-    },
-    {
-      "day": "2026-10-04",
-      "kind": "Paid out",
-      "amount": 0.0091,
-      "holders": 124,
-      "tx": "0xd623197faf4ee1c1488de526b3890b3d937bed03e7c7653d68d154a0fe6e9b00"
     }
   ]
 }

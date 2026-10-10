@@ -96,6 +96,17 @@ async function xPost(text) {
 
 await tgCheck();
 
+// Read-only X login check, once a day (the Free tier rate-limits /users/me).
+if (X.appKey && X.accessToken && !DRY && state.xCheck !== today) {
+  try {
+    const require = createRequire(new URL("../.bot/", import.meta.url));
+    const { TwitterApi } = require("twitter-api-v2");
+    const me = await new TwitterApi(X).v2.me();
+    log(`x check: posting as @${me.data.username}`);
+    state.xCheck = today;
+  } catch (e) { log("x check failed:", e.code || "", e.message); }
+}
+
 // ---------- New payouts → Telegram ----------
 const payouts = (feed.recent || []).filter((e) => /^Paid out/i.test(e.kind) && e.tx);
 let fresh = payouts.filter((e) => !done.has(e.tx));

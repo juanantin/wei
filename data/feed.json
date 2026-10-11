@@ -1,10 +1,17 @@
 {
   "source": "https://www.stockify.finance/indices/0xa0cb7a7a4beb0b4bb819637a961c1dfe9bee3507",
-  "at": "2026-10-11T12:23:15.078Z",
-  "pages": 15,
-  "entries": 148,
+  "at": "2026-10-11T12:32:09.370Z",
+  "pages": 16,
+  "entries": 151,
   "note": "Amounts as shown on the panel (rounded to 4 dp); days as the panel groups them.",
   "days": {
+    "2026-10-11": {
+      "paidToHolders": 0.0107,
+      "feesIn": 0.0056,
+      "payouts": 2,
+      "holderPayments": 212,
+      "feeEvents": 1
+    },
     "2026-10-10": {
       "paidToHolders": 0.0211,
       "feesIn": 0.0209,
@@ -63,6 +70,27 @@
     }
   },
   "recent": [
+    {
+      "day": "2026-10-11",
+      "kind": "Paid out",
+      "amount": 0.0033,
+      "holders": 62,
+      "tx": "0xf636c8feda1213ea75514eed6e527c11f782ccaa237a2cb2fc6495f5ab0d6b85"
+    },
+    {
+      "day": "2026-10-11",
+      "kind": "Paid out",
+      "amount": 0.0074,
+      "holders": 150,
+      "tx": "0x5156a1ee07e32a7f3dc7ba22178088acfde778c0d6665d8e95de6ae7845b6738"
+    },
+    {
+      "day": "2026-10-11",
+      "kind": "Fees in",
+      "amount": 0.0056,
+      "holders": null,
+      "tx": "0x4c277d12073a3440459dd5c9234a8e184d61eb29536a38361f9dc859894f5d40"
+    },
     {
       "day": "2026-10-10",
       "kind": "Fees in",
@@ -601,27 +629,6 @@
       "amount": 0.0044,
       "holders": null,
       "tx": "0xf1bf0a53f7d56feadaff6c6cd58892bcef1222c2579433b449b3730cad1a8c04"
-    },
-    {
-      "day": "2026-10-05",
-      "kind": "Paid out",
-      "amount": 0.0094,
-      "holders": 124,
-      "tx": "0x34b4ea9722feae7e177eb5e8ae4a06fadb8500f11ead4d10710abae660c5b990"
-    },
-    {
-      "day": "2026-10-05",
-      "kind": "Fees in",
-      "amount": 0.0048,
-      "holders": null,
-      "tx": "0x61b6f1f9501d62707ed81d6f148f39c5761a5a6dd82ebc29ac81aad5770d8a6e"
-    },
-    {
-      "day": "2026-10-05",
-      "kind": "Fees in",
-      "amount": 0.0056,
-      "holders": null,
-      "tx": "0x0f0718de0a1c55fe5613568e31438d8f793b0e5999e8ba8cb328504607ed583c"
     }
   ]
 }

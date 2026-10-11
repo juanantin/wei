@@ -1,6 +1,6 @@
 {
   "source": "https://www.stockify.finance/indices/0xa0cb7a7a4beb0b4bb819637a961c1dfe9bee3507",
-  "at": "2026-10-11T12:32:00.958Z",
+  "at": "2026-10-11T12:41:53.063Z",
   "paidToHoldersUsd": 1150,
   "paidToHolders": 0.4609,
   "feesCollectedUsd": 1280,
@@ -9,13 +9,13 @@
   "roundsPaid": 67,
   "walletPayments": 6702,
   "waitingToInvest": 0,
-  "toHoldersPct": 90,
-  "minHolding": 10000,
-  "activityEntries": 151,
+  "toHoldersPct": null,
+  "minHolding": null,
+  "activityEntries": null,
   "lastPayout": {
     "amount": 0.0033,
     "holders": 62,
-    "agoValue": 6,
+    "agoValue": 16,
     "agoUnit": "m"
   }
 }

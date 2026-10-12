@@ -1,75 +1,103 @@
 {
   "source": "https://www.stockify.finance/indices/0xa0cb7a7a4beb0b4bb819637a961c1dfe9bee3507",
-  "at": "2026-10-12T16:20:55.722Z",
+  "at": "2026-10-12T19:21:28.059Z",
   "pages": 16,
   "entries": 64,
   "note": "Amounts as shown on the panel (rounded to 4 dp); days as the panel groups them.",
   "days": {
     "2026-10-12": {
-      "paidToHolders": 0.0091,
-      "feesIn": 0.0096,
+      "paidToHolders": 0.0123,
+      "feesIn": 0.0081,
       "payouts": 2,
-      "holderPayments": 209,
+      "holderPayments": 207,
       "feeEvents": 2
     },
-    "2026-10-10": {
-      "paidToHolders": 0.0088,
-      "feesIn": 0.0098,
-      "payouts": 2,
-      "holderPayments": 223,
-      "feeEvents": 2
-    },
-    "2026-10-09": {
-      "paidToHolders": 0.0375,
-      "feesIn": 0.0412,
-      "payouts": 7,
-      "holderPayments": 704,
-      "feeEvents": 5
-    },
-    "2026-10-08": {
-      "paidToHolders": 0.0093,
-      "feesIn": 0.0138,
+    "2026-10-11": {
+      "paidToHolders": 0.0074,
+      "feesIn": 0.0056,
       "payouts": 1,
       "holderPayments": 150,
-      "feeEvents": 3
+      "feeEvents": 1
     },
-    "2026-10-07": {
-      "paidToHolders": 0.0121,
-      "feesIn": 0.0044,
-      "payouts": 5,
-      "holderPayments": 548,
-      "feeEvents": 2
-    },
-    "2026-10-06": {
-      "paidToHolders": 0.0076,
-      "feesIn": 0.0083,
-      "payouts": 1,
-      "holderPayments": 99,
-      "feeEvents": 2
-    },
-    "2026-10-05": {
-      "paidToHolders": 0.0112,
-      "feesIn": 0.0041,
+    "2026-10-10": {
+      "paidToHolders": 0.0028,
+      "feesIn": 0.0063,
       "payouts": 1,
       "holderPayments": 0,
       "feeEvents": 1
     },
+    "2026-10-09": {
+      "paidToHolders": 0.0407,
+      "feesIn": 0.0423,
+      "payouts": 7,
+      "holderPayments": 707,
+      "feeEvents": 6
+    },
+    "2026-10-08": {
+      "paidToHolders": 0.0125,
+      "feesIn": 0.0135,
+      "payouts": 2,
+      "holderPayments": 55,
+      "feeEvents": 3
+    },
+    "2026-10-07": {
+      "paidToHolders": 0.0031,
+      "feesIn": 0.0126,
+      "payouts": 3,
+      "holderPayments": 100,
+      "feeEvents": 3
+    },
+    "2026-10-06": {
+      "paidToHolders": 0.0076,
+      "feesIn": 0.0121,
+      "payouts": 1,
+      "holderPayments": 99,
+      "feeEvents": 3
+    },
+    "2026-10-05": {
+      "paidToHolders": 0,
+      "feesIn": 0.0104,
+      "payouts": 0,
+      "holderPayments": 0,
+      "feeEvents": 2
+    },
     "2026-10-04": {
-      "paidToHolders": 0.0832,
-      "feesIn": 0.0795,
+      "paidToHolders": 0.0792,
+      "feesIn": 0.0742,
       "payouts": 11,
-      "holderPayments": 1053,
-      "feeEvents": 13
+      "holderPayments": 1032,
+      "feeEvents": 14
     },
     "2026-10-03": {
-      "paidToHolders": 0.0411,
-      "feesIn": 0.0162,
-      "payouts": 2,
-      "holderPayments": 177,
-      "feeEvents": 2
+      "paidToHolders": 0.0104,
+      "feesIn": 0,
+      "payouts": 1,
+      "holderPayments": 0,
+      "feeEvents": 0
     }
   },
   "recent": [
+    {
+      "day": "2026-10-12",
+      "kind": "Paid out",
+      "amount": 0.0037,
+      "holders": 57,
+      "tx": "0x1f632174e79614240543409fc5ab58447112e3eecabf1b35a240fe5426c5c660"
+    },
+    {
+      "day": "2026-10-12",
+      "kind": "Paid out",
+      "amount": 0.0086,
+      "holders": 150,
+      "tx": "0x2ff7aeed1f306e319311b03846368538ec8dffc3a69ce753f1d1d948d349ea36"
+    },
+    {
+      "day": "2026-10-12",
+      "kind": "Fees in",
+      "amount": 0.004,
+      "holders": null,
+      "tx": "0xdbc22187f6248e5baa1d14efe4d948169cc52abacba191ccf59957b1987e5af6"
+    },
     {
       "day": "2026-10-12",
       "kind": "Fees in",
@@ -78,53 +106,53 @@
       "tx": "0x623c39e76a9de149f6bf39d5bc183a0cd9f6d321cf7a1996b742c86465763428"
     },
     {
-      "day": "2026-10-12",
-      "kind": "Fees in",
-      "amount": 0.0055,
-      "holders": null,
-      "tx": "0x5889c564b993ba61f4deeee67ef02d6a42ec966152027866d21b191dd0cb4043"
-    },
-    {
-      "day": "2026-10-12",
+      "day": "2026-10-11",
       "kind": "Paid out",
-      "amount": 0.0027,
-      "holders": 59,
-      "tx": "0xbde63ea26907d61600edeae1bc4baf6a60afe33880f5785c22593c1ac90cef7f"
-    },
-    {
-      "day": "2026-10-12",
-      "kind": "Paid out",
-      "amount": 0.0064,
+      "amount": 0.0074,
       "holders": 150,
-      "tx": "0x63bbaac81aed678adb9e662a2fa96c2e2f7e82f54bb1ebbaff1197a73b6304f4"
+      "tx": "0x5156a1ee07e32a7f3dc7ba22178088acfde778c0d6665d8e95de6ae7845b6738"
+    },
+    {
+      "day": "2026-10-11",
+      "kind": "Fees in",
+      "amount": 0.0056,
+      "holders": null,
+      "tx": "0x4c277d12073a3440459dd5c9234a8e184d61eb29536a38361f9dc859894f5d40"
+    },
+    {
+      "day": "2026-10-10",
+      "kind": "Fees in",
+      "amount": 0.0063,
+      "holders": null,
+      "tx": "0x6dc631f7bfb12f1da5e4fc8c301f8422e2cb2d0431fd5e69df58c98875d7d56c"
     },
     {
       "day": "2026-10-10",
       "kind": "Paid out",
       "amount": 0.0028,
-      "holders": 73,
+      "holders": null,
       "tx": "0x22ca6c589edfd0d2f5efd5e85fc039a06d8d596897733607a7d6ead5f7a5217e"
     },
     {
-      "day": "2026-10-10",
+      "day": "2026-10-09",
+      "kind": "Fees in",
+      "amount": 0.0044,
+      "holders": null,
+      "tx": "0x6763593f235562de259226081d865da8ddcea979353d0db9271676be43a81278"
+    },
+    {
+      "day": "2026-10-09",
+      "kind": "Fees in",
+      "amount": 0.0044,
+      "holders": null,
+      "tx": "0x25bced0238db559a44c8693db6476e9f173becdfdf78e62eb15f084f4a2a3ae1"
+    },
+    {
+      "day": "2026-10-09",
       "kind": "Paid out",
-      "amount": 0.006,
-      "holders": 150,
-      "tx": "0xafe778f77962bbeb94d611b051b757c1c8fdc68d39d1b956a1ee406044a92a33"
-    },
-    {
-      "day": "2026-10-10",
-      "kind": "Fees in",
-      "amount": 0.0052,
-      "holders": null,
-      "tx": "0x3ff63a161c2eb10512a5d3d438be4e6d8905df92381e87c7887ff15c4b88426c"
-    },
-    {
-      "day": "2026-10-10",
-      "kind": "Fees in",
-      "amount": 0.0046,
-      "holders": null,
-      "tx": "0x545dd7b61aa4fb3cc84adf796bd1722234f30579910b668fb2c332ad588167da"
+      "amount": 0.0056,
+      "holders": 64,
+      "tx": "0x8f619377152d4ec96bf0d06732ffc63e14b03ed032d600a6445612363d1e4856"
     },
     {
       "day": "2026-10-09",
@@ -135,24 +163,24 @@
     },
     {
       "day": "2026-10-09",
-      "kind": "Fees in",
-      "amount": 0.0156,
-      "holders": null,
-      "tx": "0x8c91a5115c9b72075b23b18ac1916b88d8fb6e2b3d134e0b987d711199d8a0a1"
-    },
-    {
-      "day": "2026-10-09",
-      "kind": "Fees in",
-      "amount": 0.0044,
-      "holders": null,
-      "tx": "0x743fe117d3fee5e612dbcc18de73e533f5a2a9faf36ccf016502b48f7952acb1"
+      "kind": "Paid out",
+      "amount": 0.0026,
+      "holders": 66,
+      "tx": "0x8f8f9d47ef60f13340b81c9116e0bf059fc7aaced943b3ad4346c6362a7eabd6"
     },
     {
       "day": "2026-10-09",
       "kind": "Paid out",
-      "amount": 0.0029,
-      "holders": 67,
-      "tx": "0x0ff54ea063d5499937ff91f790c7f9821fad37f871797800fc5947bcfc42388b"
+      "amount": 0.0056,
+      "holders": 150,
+      "tx": "0x37c3a5d9eb9b09b53fcb912d883ea8a9406394760fbfd5121660d6905933ecc4"
+    },
+    {
+      "day": "2026-10-09",
+      "kind": "Fees in",
+      "amount": 0.0091,
+      "holders": null,
+      "tx": "0x11195ed527baa8ecdc039472acf3d24fab2a861778c3ccc6affdd279b5bae992"
     },
     {
       "day": "2026-10-09",
@@ -164,23 +192,23 @@
     {
       "day": "2026-10-09",
       "kind": "Paid out",
-      "amount": 0.006,
-      "holders": 150,
-      "tx": "0xab6a1440be2dbe6011443e076ab86898d14c0d2b2e1c7746f460ef74417848e0"
-    },
-    {
-      "day": "2026-10-09",
-      "kind": "Fees in",
-      "amount": 0.0097,
-      "holders": null,
-      "tx": "0x6e6ef2d167a47370321ac5d47c9e8ddc5b3e908f249b6cc5609cf32e6086e62d"
+      "amount": 0.0036,
+      "holders": 62,
+      "tx": "0xe64e5897b8bfca8b16dd45146b0b85a9ffdceeb10f9497122140fd1bce42cb97"
     },
     {
       "day": "2026-10-09",
       "kind": "Paid out",
-      "amount": 0.0027,
-      "holders": 64,
-      "tx": "0xdede0ded4b8e11ad468d616e6a40b46cd209f12cfd36e7c6c92aff8296fb9d28"
+      "amount": 0.0082,
+      "holders": 150,
+      "tx": "0xb0dd9bdf858abed8a31a4dfab2984ccd8810a16543b02ed74c4da542baf4c857"
+    },
+    {
+      "day": "2026-10-09",
+      "kind": "Fees in",
+      "amount": 0.0076,
+      "holders": null,
+      "tx": "0x0933ad78e7018ab3b29137245d6d636cfc9fc9519ee9fa2845c25f3a17be591b"
     },
     {
       "day": "2026-10-09",
@@ -191,80 +219,80 @@
     },
     {
       "day": "2026-10-09",
-      "kind": "Paid out",
-      "amount": 0.0031,
-      "holders": 58,
-      "tx": "0xa475cf42c882599f531fd4af192ee67a0e37a5fe3ae580863e22159199afe0ca"
-    },
-    {
-      "day": "2026-10-09",
-      "kind": "Paid out",
-      "amount": 0.0077,
-      "holders": 150,
-      "tx": "0xd8e7fd3d69f73f19b6dc3bcf30db89febf8a58609048c42785ff2f38df58934f"
-    },
-    {
-      "day": "2026-10-09",
       "kind": "Fees in",
-      "amount": 0.0059,
+      "amount": 0.0112,
       "holders": null,
-      "tx": "0x808175d3d78a5030f68c6fc124c1355de88343803315f0c43d36466c61b8e09d"
+      "tx": "0x66d51a0c50e82676cbe57c0d759d2bd8bb185c5f5d38adf379d4971898b36f19"
+    },
+    {
+      "day": "2026-10-08",
+      "kind": "Fees in",
+      "amount": 0.0049,
+      "holders": null,
+      "tx": "0x65b27b64de4da5be0bbb1c664264e536c357363a3ed714ee0937f831880fc47e"
+    },
+    {
+      "day": "2026-10-08",
+      "kind": "Paid out",
+      "amount": 0.0032,
+      "holders": 55,
+      "tx": "0xa78a317cc7eb52a056dec360f222585b7b4895020069024c2321880f83917025"
     },
     {
       "day": "2026-10-08",
       "kind": "Paid out",
       "amount": 0.0093,
-      "holders": 150,
+      "holders": null,
       "tx": "0x5a4d62a010c678f42c36eabe94c15c6d85232d309bd4cd464011f9fe65139a09"
     },
     {
       "day": "2026-10-08",
       "kind": "Fees in",
-      "amount": 0.005,
+      "amount": 0.0042,
       "holders": null,
-      "tx": "0x28a11d9c4db05d9b543ee38a1ee353dcee6225b598f5fcffc7e5b51df83dd4b2"
+      "tx": "0x2657af36a8f7bc4c1ed560a4343a0f450136ce2f45ad6110686236dde64b4a4b"
     },
     {
       "day": "2026-10-08",
       "kind": "Fees in",
-      "amount": 0.0041,
+      "amount": 0.0044,
       "holders": null,
-      "tx": "0xd1d27eca6b7b21ce77e9c2259ddc990f3268bf7fa387e4863f467fc69d08fbb8"
+      "tx": "0xca19dc931cb0d266bc5b0116bd3ffe5cef32ed74954dc88bbe953317c6c465fe"
     },
     {
-      "day": "2026-10-08",
-      "kind": "Fees in",
-      "amount": 0.0047,
-      "holders": null,
-      "tx": "0x43ffdc79f06609817fa316fe57789a0706a95b04ece09c84075d441d7dc4c333"
+      "day": "2026-10-07",
+      "kind": "Paid out",
+      "amount": 0,
+      "holders": 46,
+      "tx": "0x02d99eafbeda275dc79b642b45ef6932affe1bddcf4a610aadef17abf09e0a96"
     },
     {
       "day": "2026-10-07",
       "kind": "Paid out",
       "amount": 0.0001,
-      "holders": 150,
+      "holders": null,
       "tx": "0xfab8f660081a4bf48ee7edbbb4cc26e4ad43e28bb6a502906d2eb36584be661b"
     },
     {
       "day": "2026-10-07",
       "kind": "Fees in",
-      "amount": 0.0001,
+      "amount": 0.0044,
       "holders": null,
-      "tx": "0x8d1d76f246da0942b9b334e614150e607a9ef3e7f37c6511fdfb2fc675c73af3"
+      "tx": "0x5f0c39bf8ff1df3f97e5012db3a17c86ea8a980bb2732ae02540d7d9d30f55fc"
     },
     {
       "day": "2026-10-07",
-      "kind": "Paid out",
-      "amount": 0.0001,
-      "holders": 44,
-      "tx": "0x1a16df3e7b0f33ccaac1d291b956fa3145f0bc7c184bcc6c99d9faf7baf939e0"
+      "kind": "Fees in",
+      "amount": 0.0042,
+      "holders": null,
+      "tx": "0xe6f3d539e00ae98572ed3480f5562e11f5770bcbd78de59f4e0e382ade8fdc19"
     },
     {
       "day": "2026-10-07",
-      "kind": "Paid out",
-      "amount": 0.0005,
-      "holders": 150,
-      "tx": "0x3f316362f60aab76d467586e3d799b0bc50d4ce10bce416fa5bc1eb3d48afc52"
+      "kind": "Fees in",
+      "amount": 0.004,
+      "holders": null,
+      "tx": "0xd1270c7dc7b4b04a835ab95268f97c43032161ed360a877b51d989fec9107eef"
     },
     {
       "day": "2026-10-07",
@@ -274,25 +302,25 @@
       "tx": "0xf7a26933c689eff970289ba4238ffefc51d804640b41dc2fe3de983a47fa2f3a"
     },
     {
-      "day": "2026-10-07",
-      "kind": "Paid out",
-      "amount": 0.0084,
-      "holders": 150,
-      "tx": "0x7b1485fd5f6f8d702bb7c102f9b3b8088464c860eff7d55046fb9b0b8b8d15ea"
-    },
-    {
-      "day": "2026-10-07",
+      "day": "2026-10-06",
       "kind": "Fees in",
-      "amount": 0.0043,
+      "amount": 0.0037,
       "holders": null,
-      "tx": "0xb8e2e861f6168c24c70b8892ab493302034b96641cc240c55aa5750424e2905d"
+      "tx": "0x8f073ea544fd3e8a360e9f8c37e1fd2305f38b1659bbb8a4878e34bb3f4e3883"
     },
     {
       "day": "2026-10-06",
       "kind": "Fees in",
-      "amount": 0.004,
+      "amount": 0.0038,
       "holders": null,
-      "tx": "0x7cbd29af7f5bea6e6f6e571d35b8c0ae1dee8358a9ffcd6e4360546713287459"
+      "tx": "0x98670ac1267457cad442ab2c3b78b12270514e64c7964d930111caa2c4f0e548"
+    },
+    {
+      "day": "2026-10-06",
+      "kind": "Fees in",
+      "amount": 0.0046,
+      "holders": null,
+      "tx": "0xa0c26624b5852047d02d352c6640d5cadb49c9355823e33bc9ce6d4045989b19"
     },
     {
       "day": "2026-10-06",
@@ -302,25 +330,25 @@
       "tx": "0x41a08a4440b43739de1a0f8bb1abae1c28568042ba242c45d600ff28bff8050c"
     },
     {
-      "day": "2026-10-06",
+      "day": "2026-10-05",
       "kind": "Fees in",
-      "amount": 0.0043,
+      "amount": 0.0048,
       "holders": null,
-      "tx": "0x6310a1c4cc3b1916b33d85a65b460bb6a1b6afcb129d40f3330a10a97f213b27"
+      "tx": "0x61b6f1f9501d62707ed81d6f148f39c5761a5a6dd82ebc29ac81aad5770d8a6e"
     },
     {
       "day": "2026-10-05",
       "kind": "Fees in",
-      "amount": 0.0041,
+      "amount": 0.0056,
       "holders": null,
-      "tx": "0x517a0057587747d9342cca04c248970e7bc8e3f84dd598bc2da110786e766bcf"
+      "tx": "0x0f0718de0a1c55fe5613568e31438d8f793b0e5999e8ba8cb328504607ed583c"
     },
     {
-      "day": "2026-10-05",
+      "day": "2026-10-04",
       "kind": "Paid out",
-      "amount": 0.0112,
-      "holders": null,
-      "tx": "0xa3f8fd94511410270416be72a406bcca7e65022975a5e549c405c191a6931c53"
+      "amount": 0.0089,
+      "holders": 120,
+      "tx": "0x183d11b2e111c5737dbc2f0952006ec660580642edf546c6bb234f440ad64680"
     },
     {
       "day": "2026-10-04",
@@ -332,23 +360,23 @@
     {
       "day": "2026-10-04",
       "kind": "Fees in",
-      "amount": 0.0056,
+      "amount": 0.0045,
       "holders": null,
-      "tx": "0x9e0a5e20277a47f341277cca0ff71fad0d83971fa885d2a714d3b59af51516c6"
+      "tx": "0x14a677ef748370f63b5f4298aec88f42ac5ffd292afcac799c43fd24a5721026"
     },
     {
       "day": "2026-10-04",
       "kind": "Paid out",
-      "amount": 0.0091,
-      "holders": 124,
-      "tx": "0xd623197faf4ee1c1488de526b3890b3d937bed03e7c7653d68d154a0fe6e9b00"
+      "amount": 0.0154,
+      "holders": 115,
+      "tx": "0x0332680ec2f6f22dea5bd9ce48c8fef46c61e7a43dad4ea23a8cdfa059d92a69"
     },
     {
       "day": "2026-10-04",
       "kind": "Fees in",
-      "amount": 0.0054,
+      "amount": 0.0109,
       "holders": null,
-      "tx": "0x3b4e21880f0f765d1e8db5e9be3bd756d8263381cd9be28e0716b24abf1a3d99"
+      "tx": "0x33526dec5c37ef733b8fd38cd13eab3175e21d653ce0e577a14e7bedbefc0b7e"
     },
     {
       "day": "2026-10-04",
@@ -359,24 +387,24 @@
     },
     {
       "day": "2026-10-04",
+      "kind": "Fees in",
+      "amount": 0.0004,
+      "holders": null,
+      "tx": "0xdb6e0ae2d178bfba9d3533a4b75afe4ec7dbb53a318f010644c11eb2622f2fa2"
+    },
+    {
+      "day": "2026-10-04",
       "kind": "Paid out",
-      "amount": 0.0296,
-      "holders": 116,
-      "tx": "0x65eb9bc8ccb9ca0cf76857841bc0fadd470e1378b450e21ecb608c87663ca190"
+      "amount": 0.0031,
+      "holders": 96,
+      "tx": "0x454747dd39de8790888d1f7df8d0e52941fb29774c229abd3571b1adbfd6c08d"
     },
     {
       "day": "2026-10-04",
       "kind": "Fees in",
-      "amount": 0.0328,
+      "amount": 0.0034,
       "holders": null,
-      "tx": "0xf80ecb3aa26593d59e26d71a7be8bc77439ed06a14d869f8f98ff366d37b8bb6"
-    },
-    {
-      "day": "2026-10-04",
-      "kind": "Paid out",
-      "amount": 0,
-      "holders": 92,
-      "tx": "0x2f7b8c13fdda7be681d04bc99701ea9382a986a6a234bc5f53324bf016f01111"
+      "tx": "0x7f804ad940bfa5ea5168a2267fc12d4246af56bd3f4c40031249340bd79d8f50"
     },
     {
       "day": "2026-10-04",
@@ -387,24 +415,24 @@
     },
     {
       "day": "2026-10-04",
-      "kind": "Fees in",
-      "amount": 0.0008,
-      "holders": null,
-      "tx": "0xe729fe9f436636671c9bac5c674eced17d148357d0edbc304646fc140725cc93"
-    },
-    {
-      "day": "2026-10-04",
       "kind": "Paid out",
-      "amount": 0.0016,
-      "holders": 96,
-      "tx": "0x97fec5325b57caaaaf7653d5fce68a802d3f8cf48bb9aaf3c56c4a7c0a028ce7"
+      "amount": 0.0051,
+      "holders": 98,
+      "tx": "0x6255918354fa809e9b503122aceb8cc530592cef01c94a9cfd7316ef3c0a01b7"
     },
     {
       "day": "2026-10-04",
       "kind": "Fees in",
-      "amount": 0.0017,
+      "amount": 0.0009,
       "holders": null,
-      "tx": "0x156aa38fb30032ec702e62b5ea4deb9b3951b30e09c6d07f77b35181a4ee3ad5"
+      "tx": "0x816cd36dd82ba92d038a36ff28e81323cb9bd01f7aef446ddfeb17092cc7e87e"
+    },
+    {
+      "day": "2026-10-04",
+      "kind": "Fees in",
+      "amount": 0.0047,
+      "holders": null,
+      "tx": "0xfa45c11e582a55768a8873aadc7c56c44f30a097cdff6c077f2f2e2310ac7e27"
     },
     {
       "day": "2026-10-04",
@@ -416,23 +444,23 @@
     {
       "day": "2026-10-04",
       "kind": "Fees in",
-      "amount": 0.0029,
+      "amount": 0.0014,
       "holders": null,
-      "tx": "0x0548596c89f57f78b68bb98f86c1692dd241fdfadf15342050be42c67ed6c54f"
-    },
-    {
-      "day": "2026-10-04",
-      "kind": "Fees in",
-      "amount": 0.0037,
-      "holders": null,
-      "tx": "0x6c016ed18d4d96e24cd6db584b7061ecb4c8cf98794a767167705f773dbf66b1"
+      "tx": "0x13ae4470315192cffbc05cf0333182b66be512e4702f4731354b2ad5cf0dc05c"
     },
     {
       "day": "2026-10-04",
       "kind": "Paid out",
-      "amount": 0.0124,
-      "holders": 93,
-      "tx": "0x38404f05896a2001a531ccb027d31901328730a27a0909cbb49ca321ef2d4ba4"
+      "amount": 0.0003,
+      "holders": 81,
+      "tx": "0x45f90d15d29df9db7bdc74f9a46d8c630428b97ea249c3aa039e0b0bd21d20a4"
+    },
+    {
+      "day": "2026-10-04",
+      "kind": "Fees in",
+      "amount": 0.0004,
+      "holders": null,
+      "tx": "0x89f79e39cbae043c8bff28d05c0935046c56c508395526ce15a31455a76e499a"
     },
     {
       "day": "2026-10-04",
@@ -444,23 +472,23 @@
     {
       "day": "2026-10-04",
       "kind": "Fees in",
-      "amount": 0.0038,
+      "amount": 0.0001,
       "holders": null,
-      "tx": "0x3af969d284482ea5a21473b88189eb008d9ae221f871e48e207abb9ea85d2797"
+      "tx": "0x7682278de668517148a7bad952575369cb2fd741d875a8c1d5a64485dbeb9f09"
     },
     {
       "day": "2026-10-04",
       "kind": "Paid out",
-      "amount": 0,
-      "holders": 74,
-      "tx": "0x38062a5bc9e165c4a3a0c104a425b44641b018c6b95efc70295581dedc2eeff9"
+      "amount": 0.0041,
+      "holders": 72,
+      "tx": "0x8ff2c973d61715ac399eb0f538ade6f034363cbbf700cb5da42169daf1b40fe6"
     },
     {
       "day": "2026-10-04",
       "kind": "Fees in",
-      "amount": 0,
+      "amount": 0.0045,
       "holders": null,
-      "tx": "0x35958a94d8c0385a8bea5752d0aa1d8b2451aa395879aaaf376db38ced93b665"
+      "tx": "0xa0b93b675c8d0802633c7aa77a6fbabeb5480be2b54247effec15a31bac11124"
     },
     {
       "day": "2026-10-04",
@@ -472,51 +500,30 @@
     {
       "day": "2026-10-04",
       "kind": "Fees in",
-      "amount": 0.0068,
+      "amount": 0.0089,
       "holders": null,
-      "tx": "0x8ae8b805cb9459b0d82269b67361623c7ce68d3302ba8e6b6ebe75c076bbe52b"
-    },
-    {
-      "day": "2026-10-04",
-      "kind": "Fees in",
-      "amount": 0.0055,
-      "holders": null,
-      "tx": "0xefb5a1da41baf9fe76f6875562279196be55dcc1072d2c6269b84752367265d0"
+      "tx": "0x9ed7e2aa1133935c3fe26d1ebdc9b98182c26af82dfff3ffe4eb39216ee2bd5d"
     },
     {
       "day": "2026-10-04",
       "kind": "Paid out",
-      "amount": 0.0094,
-      "holders": 101,
-      "tx": "0xf8caff5f8f491cb9259aff23f94c77c4c90af849a62213be688df7b9f4843867"
+      "amount": 0.0212,
+      "holders": 93,
+      "tx": "0xbf115b54aac017b5448c4e473472c5a7705a8cb431943547c8e53736f16f90b9"
+    },
+    {
+      "day": "2026-10-04",
+      "kind": "Fees in",
+      "amount": 0.0236,
+      "holders": null,
+      "tx": "0x821db41dc71d6a073f0a359a9fed4498012b956b85023aed852bab934207922d"
     },
     {
       "day": "2026-10-03",
       "kind": "Paid out",
       "amount": 0.0104,
-      "holders": 100,
+      "holders": null,
       "tx": "0xd674978db0211100072177e36e2abaac48e5470ba89857ce847b00245878eab5"
-    },
-    {
-      "day": "2026-10-03",
-      "kind": "Fees in",
-      "amount": 0.0116,
-      "holders": null,
-      "tx": "0x51e62b47a374bab61238f23d6eb8682f4ef8a864cb4ba84f2ec8fa6cdb936ec4"
-    },
-    {
-      "day": "2026-10-03",
-      "kind": "Paid out",
-      "amount": 0.0307,
-      "holders": 77,
-      "tx": "0x1c21c7c9a882ccd024c46f033ec68b5d392f45511d5fac6e8feb9ec4e0d7bbf1"
-    },
-    {
-      "day": "2026-10-03",
-      "kind": "Fees in",
-      "amount": 0.0046,
-      "holders": null,
-      "tx": "0x057dcf9db1374e44e05fc8f151491bf3fe822c7b2ed1f900b1b5e51a3425a1ed"
     }
   ]
 }

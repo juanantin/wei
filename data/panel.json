@@ -1,9 +1,9 @@
 {
   "source": "https://www.stockify.finance/indices/0xa0cb7a7a4beb0b4bb819637a961c1dfe9bee3507",
-  "at": "2026-10-22T02:35:36.835Z",
+  "at": "2026-10-22T02:43:15.112Z",
   "paidToHoldersUsd": 1250,
   "paidToHolders": 0.5097,
-  "feesCollectedUsd": 1390,
+  "feesCollectedUsd": 1380,
   "feesCollected": 0.5664,
   "rewardSymbol": "WETH",
   "roundsPaid": 75,

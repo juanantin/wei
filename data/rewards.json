@@ -1,16 +1,16 @@
 {
-  "updatedAt": "2026-10-23T16:47:31.880Z",
-  "synced": false,
-  "cursor": 52328547,
-  "head": 52992284,
-  "holders": null,
-  "holdersAboveMin": null,
-  "feesCollected": 0.3488674616734072,
-  "paidToHolders": 0.3138246350248362,
+  "updatedAt": "2026-10-23T16:57:18.119Z",
+  "synced": true,
+  "cursor": 52992519,
+  "head": 52992519,
+  "holders": 338,
+  "holdersAboveMin": 154,
+  "feesCollected": 0.5680642675644493,
+  "paidToHolders": 0.5348189988450721,
   "protocolCut": 0.03155792327155448,
-  "holderShare": 0.899552,
-  "protocolShare": 0.090458,
-  "otherOut": 0.041953204915427346,
+  "holderShare": 0.941476,
+  "protocolShare": 0.055553,
+  "otherOut": 0.04504088502084559,
   "otherOutByRecipient": {
     "0x2a201ada10b55f1979c8f5e5c303c8a3cde44c71": 0.03155792327155448,
     "0x58072830f24a3af4e68810e80480a0126815538e": 0.001061637004820107,
@@ -18,18 +18,97 @@
     "0x79f6591360d96f8a53b60337b4772c4abd165c5d": 0.00085670576958687,
     "0xf0c1011258272abbe9798f6af6f1c6443e34da63": 0.000797847188577485,
     "0x0db3ca390e0a9ecc3fd65f9a3da734f6058c698e": 0.000670068164687938,
-    "0x71380de545285c57398c7e2208945f101be30f93": 0.000291073698406352,
-    "0xe5d3293a09205d691f7a436c53ff936989850065": 0.00027687984144824,
-    "0xb873e58d96227e12f08c734fc2d9b0101be199b2": 0.000258708803787026,
-    "0x95b428d3df31f0aee919892abccf315eb471bbc5": 0.00023568004389295
+    "0x677e9d1ad0ce4bd29f64dff319cdf612e1c4ba65": 0.000443854079046832,
+    "0xee075f452e2d4e5b783bd49cc1b1544e1a7b156f": 0.000312113395179633,
+    "0xff7605256f525ea51cf7ca733a1ecf8e25f14a40": 0.000299692070575058,
+    "0x8c15f17aec4bc2472bdd9e08b25c87a8b6ed6715": 0.000296273878010993
   },
-  "rounds": 50,
-  "walletPayments": 3864,
-  "daily": {},
+  "rounds": 122,
+  "walletPayments": 7348,
+  "daily": {
+    "2026-10-08": {
+      "paidToHolders": 0.02845428785320574,
+      "feesCollected": 0.03298586872794127,
+      "payments": 399,
+      "payoutTxs": 4
+    },
+    "2026-10-09": {
+      "paidToHolders": 0.08985019385266352,
+      "feesCollected": 0.10377032685412624,
+      "payments": 1696,
+      "payoutTxs": 16
+    },
+    "2026-10-10": {
+      "paidToHolders": 0.021051080054092456,
+      "feesCollected": 0.02260164227877821,
+      "payments": 445,
+      "payoutTxs": 4
+    },
+    "2026-10-11": {
+      "paidToHolders": 0.010703449066955502,
+      "feesCollected": 0.008807208513435616,
+      "payments": 212,
+      "payoutTxs": 2
+    },
+    "2026-10-12": {
+      "paidToHolders": 0.021328840714673825,
+      "feesCollected": 0.018780996406025655,
+      "payments": 416,
+      "payoutTxs": 4
+    },
+    "2026-10-13": {
+      "paidToHolders": 0,
+      "feesCollected": 0.00859393798791367,
+      "payments": 0,
+      "payoutTxs": 0
+    },
+    "2026-10-14": {
+      "paidToHolders": 0,
+      "feesCollected": 0.004244164625136972,
+      "payments": 0,
+      "payoutTxs": 0
+    },
+    "2026-10-15": {
+      "paidToHolders": 0.016569325844100206,
+      "feesCollected": 0.007517277553629907,
+      "payments": 182,
+      "payoutTxs": 2
+    },
+    "2026-10-16": {
+      "paidToHolders": 0,
+      "feesCollected": 0.001471942284667345,
+      "payments": 0,
+      "payoutTxs": 0
+    },
+    "2026-10-17": {
+      "paidToHolders": 0,
+      "feesCollected": 0.003871527262400078,
+      "payments": 0,
+      "payoutTxs": 0
+    },
+    "2026-10-19": {
+      "paidToHolders": 0,
+      "feesCollected": 0.002777372135265008,
+      "payments": 0,
+      "payoutTxs": 0
+    },
+    "2026-10-20": {
+      "paidToHolders": 0.010937750052521088,
+      "feesCollected": 0.002087195813899544,
+      "payments": 160,
+      "payoutTxs": 2
+    },
+    "2026-10-22": {
+      "paidToHolders": 0,
+      "feesCollected": 0.001687345447822618,
+      "payments": 0,
+      "payoutTxs": 0
+    }
+  },
   "lastPayout": {
-    "block": 52308872,
-    "time": 1791407091000,
-    "amount": 0.000024662614811433,
-    "holders": 46
+    "block": 52863510,
+    "time": 1792516367000,
+    "amount": 0.000545393088504867,
+    "holders": 10
   }
 }

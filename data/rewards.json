@@ -1,15 +1,15 @@
 {
-  "updatedAt": "2026-10-25T09:45:57.384Z",
+  "updatedAt": "2026-10-25T09:51:37.346Z",
   "synced": true,
-  "cursor": 53066099,
-  "head": 53066099,
-  "holders": 357,
-  "holdersAboveMin": 169,
-  "feesCollected": 0.5806999812959958,
+  "cursor": 53066267,
+  "head": 53066267,
+  "holders": 354,
+  "holdersAboveMin": 168,
+  "feesCollected": 0.5830084710990097,
   "paidToHolders": 0.544936431310244,
   "protocolCut": 0.03155792327155448,
-  "holderShare": 0.938413,
-  "protocolShare": 0.054344,
+  "holderShare": 0.934697,
+  "protocolShare": 0.054129,
   "otherOut": 0.04504088502084559,
   "otherOutByRecipient": {
     "0x2a201ada10b55f1979c8f5e5c303c8a3cde44c71": 0.03155792327155448,
@@ -26,12 +26,6 @@
   "rounds": 126,
   "walletPayments": 7516,
   "daily": {
-    "2026-10-08": {
-      "paidToHolders": 0.02845428785320574,
-      "feesCollected": 0.03298586872794127,
-      "payments": 399,
-      "payoutTxs": 4
-    },
     "2026-10-09": {
       "paidToHolders": 0.08985019385266352,
       "feesCollected": 0.10377032685412624,
@@ -109,6 +103,12 @@
       "feesCollected": 0.01263571373154648,
       "payments": 166,
       "payoutTxs": 2
+    },
+    "2026-10-25": {
+      "paidToHolders": 0,
+      "feesCollected": 0.002308489803013807,
+      "payments": 0,
+      "payoutTxs": 0
     }
   },
   "lastPayout": {

@@ -38,3 +38,16 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Something went wrong. Try again." }, { status: 500 });
   }
 }
+
+// GET /api/booth: which settings this deployment can see (never the values).
+export async function GET() {
+  return NextResponse.json({
+    geminiKey: !!process.env.GEMINI_API_KEY?.trim(),
+    model: process.env.GEMINI_IMAGE_MODEL || "gemini-2.5-flash-image (default)",
+    dailyLimit: DAILY_LIMIT,
+    sharedLimit: !!(process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN),
+    similarNames: Object.keys(process.env).filter((k) => /gemini|google|genai/i.test(k)),
+    vercelEnv: process.env.VERCEL_ENV || "local",
+    commit: process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 7) || null,
+  });
+}

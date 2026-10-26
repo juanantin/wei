@@ -83,7 +83,7 @@ Keep everything else exactly as it is: the cream spacesuit, the dog Wei (the pal
 Match the face's lighting to the scene. Photorealistic, cinematic. No text, no watermark.`;
 
 export async function generatePortrait(scene: { data: string; mime: string }, face: { data: string; mime: string }) {
-  const key = process.env.GEMINI_API_KEY;
+  const key = process.env.GEMINI_API_KEY?.trim();
   if (!key) throw new BoothError("The Mars Booth isn't switched on yet.", 503);
   const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`, {
     method: "POST",

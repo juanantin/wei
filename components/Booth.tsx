@@ -183,8 +183,8 @@ export function Booth({ buyUrl }: { buyUrl: string }) {
       )}
 
       {!result && (
-        <div className="relative mt-6 aspect-[1340/618] w-full overflow-hidden rounded-[3px] border border-line">
-          <Image src="/wei-assets/hero.jpg" alt="The astronaut and Wei on Mars" fill sizes="880px" className="object-cover" />
+        <div className="relative mt-6 aspect-[1050/962] w-full max-w-[560px] mx-auto overflow-hidden rounded-[3px] border border-line">
+          <Image src="/wei-assets/booth-scene.jpg" alt="The astronaut walking Wei on Mars" fill sizes="560px" className="object-cover" />
           <span className="label absolute bottom-3 left-3 rounded-[3px] bg-bg/70 px-3 py-1.5 text-[0.65rem] backdrop-blur-sm">
             Your face goes here
           </span>

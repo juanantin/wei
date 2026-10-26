@@ -76,20 +76,15 @@ export async function countUse(addr: string) {
 }
 
 // ---------- Image generation ----------
-export const PROMPT_VERSION = "empty-helmet-1";
-const PROMPT = `Edit the first image (a cinematic still from the animated series "WEI THE DOG").
-The bottom third of the first image is a flat brown placeholder. Replace it by continuing the scene downward as one seamless photo:
-- Wei, the pale cream dog with the red collar, standing on the Mars ground with his FULL body visible: chest, all four legs and paws resting on the red dirt, nothing cropped.
-- The astronaut's spacesuit continuing down to the knees, kneeling or standing beside Wei.
-- Red Mars ground with small rocks and soft shadows, matching the existing light.
-The astronaut's helmet in the first image is open and empty: the dark oval is where the face goes. Put the subject from the second image (a person, or a character) inside it as the astronaut:
+export const PROMPT_VERSION = "walk-1";
+const PROMPT = `Edit the first image (a cinematic still from the animated series "WEI THE DOG": an astronaut on Mars walking Wei, the pale cream dog, on a leash).
+Put the subject from the second image (a person, or a character) inside the astronaut's helmet:
 - Use ONLY their head and face from the second image. Ignore and discard everything else in that photo: its background, scenery, clothes and frame.
-- Their head is life-size for this suit and fills the dark oval: chin just above the neck ring, top of the head near the top of the helmet, face roughly as wide as the opening. Never small, floating or shrunken.
-- The helmet glass is clear, with no gold visor, no tint and no reflection over the face. Inside the helmet around the head is shadowy padding, not scenery.
-- Head and neck sit naturally in the suit, facing the camera, lit by the same warm Mars light as the scene.
+- Replace the dark visor with clear glass so their face is visible. Their head is life-size for this suit and fills the helmet opening, chin at the neck ring. Never small, floating or shrunken.
+- No tint and no reflection over the face. Head and neck sit naturally in the suit, facing the camera, lit by the same warm Mars light as the scene.
 - Keep their facial features, expression, skin or fur tone and hair recognisable.
-Apart from the helmet, keep the top part as it is: the cream spacesuit, Wei's head and collar, the Mars dust storm, the warm orange light and the film look.
-Keep the 3:2 frame. Match the face's lighting to the scene. Photorealistic, cinematic. No text, no watermark, no visible seam.`;
+Keep everything else exactly as it is: the astronaut's suit, pose and boots, the leash, Wei (his whole body, collar and pose), the Mars landscape, the light, the framing and the film look.
+Photorealistic, cinematic. No text, no watermark.`;
 
 export async function generatePortrait(scene: { data: string; mime: string }, face: { data: string; mime: string }) {
   const key = process.env.GEMINI_API_KEY?.trim();

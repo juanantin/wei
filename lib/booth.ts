@@ -1,48 +1,13 @@
 import "server-only";
-import { createPublicClient, erc20Abi, fallback, getAddress, http, parseUnits, type Address, type Hex } from "viem";
-import { base } from "viem/chains";
-import { boothMessage, utcDay } from "@/lib/booth-message";
-import { config } from "@/lib/config";
-
-// Mars Booth: holders of MIN_HOLDING $WEI can put their face on the astronaut.
-export const MIN_HOLDING = 10_000;
+// Mars Booth: anyone can put their face on the astronaut next to Wei.
+// Limits keep the Gemini bill in check: DAILY_LIMIT per visitor (by IP) and GLOBAL_LIMIT for the whole site, per UTC day.
 export const DAILY_LIMIT = Number(process.env.BOOTH_DAILY_LIMIT) || 3;
+export const GLOBAL_LIMIT = Number(process.env.BOOTH_GLOBAL_DAILY_LIMIT) || 300;
 const MODEL = process.env.GEMINI_IMAGE_MODEL || "gemini-2.5-flash-image";
 
-const client = createPublicClient({
-  chain: base,
-  transport: fallback([
-    ...(process.env.RPC_URL ? [http(process.env.RPC_URL)] : []),
-    http("https://mainnet.base.org"),
-    http("https://base-rpc.publicnode.com"),
-  ]),
-});
+const utcDay = (d = new Date()) => d.toISOString().slice(0, 10);
 
-
-export async function verifyHolder(address: string, signature: string, day: string) {
-  if (!/^0x[0-9a-fA-F]{40}$/.test(address)) throw new BoothError("Invalid wallet address.", 400);
-  // Accept today or yesterday (UTC) so a signature made just before midnight still works.
-  const yesterday = utcDay(new Date(Date.now() - 864e5));
-  if (day !== utcDay() && day !== yesterday) throw new BoothError("Signature expired. Sign again.", 401);
-  const addr = getAddress(address) as Address;
-  // verifyMessage also covers smart wallets (ERC-1271 / ERC-6492), e.g. Coinbase Smart Wallet.
-  const ok = await client
-    .verifyMessage({ address: addr, message: boothMessage(addr, day), signature: signature as Hex })
-    .catch(() => false);
-  if (!ok) throw new BoothError("Signature check failed. Sign again.", 401);
-  const balance = await client.readContract({
-    address: config.tokenAddress as Address,
-    abi: erc20Abi,
-    functionName: "balanceOf",
-    args: [addr],
-  });
-  if (balance < parseUnits(String(MIN_HOLDING), 18)) {
-    throw new BoothError(`The Mars Booth is for holders of ${MIN_HOLDING.toLocaleString("en-US")}+ $WEI.`, 403);
-  }
-  return addr;
-}
-
-// ---------- Daily limit per wallet ----------
+// ---------- Daily limits ----------
 // Uses Upstash Redis when its env vars are set (shared across all serverless instances).
 // Without it, falls back to per-instance memory, which is best-effort only.
 const memory = new Map<string, number>();
@@ -61,18 +26,34 @@ async function redis(cmd: (string | number)[]) {
   return j.result;
 }
 
-export async function usedToday(addr: string) {
-  const key = `booth:${utcDay()}:${addr.toLowerCase()}`;
+const visitorKey = (id: string) => `booth:${utcDay()}:${id}`;
+const globalKey = () => `booth:${utcDay()}:all`;
+
+async function get(key: string) {
   if (upstash) return Number(await redis(["GET", key])) || 0;
   return memory.get(key) || 0;
 }
 
-export async function countUse(addr: string) {
-  const key = `booth:${utcDay()}:${addr.toLowerCase()}`;
+async function incr(key: string) {
   if (upstash) {
     await redis(["INCR", key]);
     await redis(["EXPIRE", key, 172800]);
   } else memory.set(key, (memory.get(key) || 0) + 1);
+}
+
+export async function checkLimits(visitor: string) {
+  if ((await get(globalKey())) >= GLOBAL_LIMIT) {
+    throw new BoothError("The Mars Booth is fully booked today. Come back tomorrow.", 429);
+  }
+  if ((await get(visitorKey(visitor))) >= DAILY_LIMIT) {
+    throw new BoothError(`You've made ${DAILY_LIMIT} portraits today. Come back tomorrow.`, 429);
+  }
+}
+
+export async function countUse(visitor: string) {
+  await incr(visitorKey(visitor));
+  await incr(globalKey());
+  return Math.max(0, DAILY_LIMIT - (await get(visitorKey(visitor))));
 }
 
 // ---------- Image generation ----------

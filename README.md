@@ -63,17 +63,17 @@ Optional: add a private Base RPC as the repository secret `RPC_URL`. Otherwise t
 
 ## Mars Booth (`/booth`)
 
-Holders of 10,000+ $WEI put their face on the astronaut next to Wei. The visitor connects a wallet and signs a free message. The server verifies the signature, reads their $WEI balance on Base, then asks Gemini to edit `public/wei-assets/hero.jpg` with their selfie. Photos are processed in memory and never stored.
+Anyone can put their face on the astronaut walking Wei. The visitor uploads a selfie and Gemini edits `public/wei-assets/booth-scene.jpg` with it. Photos are processed in memory and never stored. `GET /api/booth` shows which settings the deployment sees (never the values).
 
 Vercel environment variables:
 
 | Variable | Needed | What it is |
 |---|---|---|
-| `GEMINI_API_KEY` | yes | Google AI Studio key (aistudio.google.com → Get API key). Billed per image. |
+| `GEMINI_API_KEY` | yes | Google AI Studio key with billing on. About $0.04 per image. |
 | `GEMINI_IMAGE_MODEL` | no | Defaults to `gemini-2.5-flash-image`. |
-| `BOOTH_DAILY_LIMIT` | no | Portraits per wallet per UTC day (default 3). |
-| `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` | recommended | Makes the daily limit exact across serverless instances (free Upstash Redis via Vercel Marketplace). Without them the limit is best-effort. |
-| `RPC_URL` | no | Private Base RPC for the balance check; public RPCs are used otherwise. |
+| `BOOTH_DAILY_LIMIT` | no | Portraits per visitor (by IP) per UTC day (default 3). |
+| `BOOTH_GLOBAL_DAILY_LIMIT` | no | Portraits for the whole site per UTC day (default 300, about $12). |
+| `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` | strongly recommended | Makes both limits exact across serverless instances (free Upstash Redis via Vercel Marketplace). Without them the limits are per instance and only best-effort. |
 
 ## Deploy on Vercel
 

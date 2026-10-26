@@ -1,8 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
-import { BoothError, countUse, DAILY_LIMIT, generatePortrait, usedToday, verifyHolder } from "@/lib/booth";
+import { readFile } from "node:fs/promises";
+import { createHash } from "node:crypto";
+import path from "node:path";
+import { BoothError, countUse, DAILY_LIMIT, generatePortrait, PROMPT_VERSION, usedToday, verifyHolder } from "@/lib/booth";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
+
+// Read from the deployment's own files (bundled via outputFileTracingIncludes), not over HTTP,
+// so a cached copy can never be used.
+const SCENE = path.join(process.cwd(), "public/wei-assets/booth-scene.jpg");
+const readScene = () => readFile(SCENE);
 
 const MAX_PHOTO = 3 * 1024 * 1024; // the page resizes photos to ~1024px JPEG before upload
 
@@ -23,9 +31,7 @@ export async function POST(req: NextRequest) {
       throw new BoothError(`You've made ${DAILY_LIMIT} portraits today. Come back tomorrow.`, 429);
     }
 
-    const sceneRes = await fetch(new URL("/wei-assets/booth-scene.jpg", req.nextUrl.origin));
-    if (!sceneRes.ok) throw new BoothError("Scene image missing.", 500);
-    const scene = { data: Buffer.from(await sceneRes.arrayBuffer()).toString("base64"), mime: "image/jpeg" };
+    const scene = { data: (await readScene()).toString("base64"), mime: "image/jpeg" };
     const face = { data: Buffer.from(await photo.arrayBuffer()).toString("base64"), mime: photo.type };
 
     const out = await generatePortrait(scene, face);
@@ -48,6 +54,8 @@ export async function GET() {
     sharedLimit: !!(process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN),
     similarNames: Object.keys(process.env).filter((k) => /gemini|google|genai/i.test(k)),
     vercelEnv: process.env.VERCEL_ENV || "local",
+    scene: await readScene().then((b) => createHash("sha1").update(b).digest("hex").slice(0, 8)).catch(() => "missing"),
+    prompt: PROMPT_VERSION,
     commit: process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 7) || null,
   });
 }

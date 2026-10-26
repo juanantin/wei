@@ -76,6 +76,7 @@ export async function countUse(addr: string) {
 }
 
 // ---------- Image generation ----------
+export const PROMPT_VERSION = "empty-helmet-1";
 const PROMPT = `Edit the first image (a cinematic still from the animated series "WEI THE DOG").
 The bottom third of the first image is a flat brown placeholder. Replace it by continuing the scene downward as one seamless photo:
 - Wei, the pale cream dog with the red collar, standing on the Mars ground with his FULL body visible: chest, all four legs and paws resting on the red dirt, nothing cropped.

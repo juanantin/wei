@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
       throw new BoothError(`You've made ${DAILY_LIMIT} portraits today. Come back tomorrow.`, 429);
     }
 
-    const sceneRes = await fetch(new URL("/wei-assets/hero.jpg", req.nextUrl.origin));
+    const sceneRes = await fetch(new URL("/wei-assets/booth-scene.jpg", req.nextUrl.origin));
     if (!sceneRes.ok) throw new BoothError("Scene image missing.", 500);
     const scene = { data: Buffer.from(await sceneRes.arrayBuffer()).toString("base64"), mime: "image/jpeg" };
     const face = { data: Buffer.from(await photo.arrayBuffer()).toString("base64"), mime: photo.type };

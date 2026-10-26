@@ -77,10 +77,13 @@ export async function countUse(addr: string) {
 
 // ---------- Image generation ----------
 const PROMPT = `Edit the first image (a cinematic still from the animated series "WEI THE DOG").
-Give the astronaut the face of the person in the second image: raise the gold visor, or make the helmet glass clear, so their face is fully visible inside the helmet, looking toward the camera.
-Keep their facial features, skin tone and hairline recognisable.
-Keep everything else exactly as it is: the cream spacesuit, the dog Wei (the pale dog with the red collar), the Mars dust storm, the warm orange light, the framing and the film look.
-Match the face's lighting to the scene. Photorealistic, cinematic. No text, no watermark.`;
+The bottom third of the first image is a flat brown placeholder. Replace it by continuing the scene downward as one seamless photo:
+- Wei, the pale cream dog with the red collar, standing on the Mars ground with his FULL body visible: chest, all four legs and paws resting on the red dirt, nothing cropped.
+- The astronaut's spacesuit continuing down to the knees, kneeling or standing beside Wei.
+- Red Mars ground with small rocks and soft shadows, matching the existing light.
+Give the astronaut the face of the person in the second image: raise the gold visor, or make the helmet glass clear, so their face is fully visible inside the helmet, looking toward the camera. Keep their facial features, skin tone and hairline recognisable.
+Keep the top part as it is: the cream spacesuit, Wei's head and collar, the Mars dust storm, the warm orange light and the film look.
+Keep the 3:2 frame. Match the face's lighting to the scene. Photorealistic, cinematic. No text, no watermark, no visible seam.`;
 
 export async function generatePortrait(scene: { data: string; mime: string }, face: { data: string; mime: string }) {
   const key = process.env.GEMINI_API_KEY?.trim();

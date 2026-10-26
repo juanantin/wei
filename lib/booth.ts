@@ -86,7 +86,7 @@ Put the subject from the second image (a person, or a character) INSIDE the helm
 - Remove the gold visor completely (raised fully out of view) so the face is seen through clear glass, with only a faint, subtle reflection. No orange or gold tint and no landscape reflection over the face.
 - Head, neck and shoulders sit naturally in the suit, facing the camera, lit by the same warm Mars light from the scene.
 - Keep their facial features, expression, skin or fur tone and hair recognisable.
-Keep the top part as it is: the cream spacesuit, Wei's head and collar, the Mars dust storm, the warm orange light and the film look.
+Apart from the helmet, keep the top part as it is: the cream spacesuit, Wei's head and collar, the Mars dust storm, the warm orange light and the film look.
 Keep the 3:2 frame. Match the face's lighting to the scene. Photorealistic, cinematic. No text, no watermark, no visible seam.`;
 
 export async function generatePortrait(scene: { data: string; mime: string }, face: { data: string; mime: string }) {

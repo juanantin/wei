@@ -105,7 +105,14 @@ export async function generatePortrait(scene: { data: string; mime: string }, fa
   const j = await res.json().catch(() => ({}));
   if (!res.ok) {
     console.error("gemini error", res.status, JSON.stringify(j).slice(0, 500));
-    throw new BoothError("The image service is busy. Try again in a minute.", 502);
+    const g = (j as { error?: { status?: string; message?: string } }).error || {};
+    const detail = `[${res.status} ${g.status || ""}] ${(g.message || "").slice(0, 200)}`.trim();
+    if (res.status === 429) {
+      throw new BoothError(`Image quota reached. If this keeps happening, billing isn't enabled on the Gemini key. ${detail}`, 503);
+    }
+    if (res.status === 404) throw new BoothError(`Image model not available for this key. ${detail}`, 503);
+    if (res.status >= 500) throw new BoothError(`The image service is busy. Try again in a minute. ${detail}`, 502);
+    throw new BoothError(`The image service refused the request. ${detail}`, 502);
   }
   const parts = j.candidates?.[0]?.content?.parts || [];
   const img = parts.find((p: { inlineData?: { data: string } }) => p.inlineData?.data)?.inlineData;

@@ -4,11 +4,12 @@ import Image from "next/image";
 import { useState } from "react";
 
 const LINKS = [
-  { href: "#lore", label: "Lore" },
-  { href: "#dashboard", label: "Dashboard" },
-  { href: "#tech", label: "The tech" },
-  { href: "#episodes", label: "Episodes" },
-  { href: "#film", label: "Full film" },
+  { href: "/#lore", label: "Lore" },
+  { href: "/#dashboard", label: "Dashboard" },
+  { href: "/#tech", label: "The tech" },
+  { href: "/#episodes", label: "Episodes" },
+  { href: "/#film", label: "Full film" },
+  { href: "/booth", label: "Mars Booth" },
 ];
 
 function XIcon() {
@@ -79,7 +80,7 @@ export function Nav({
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-bg/55 backdrop-blur-md">
       <div className="container-x flex h-[72px] items-center justify-between">
-        <a href="#top" className="flex items-center gap-3" onClick={() => setOpen(false)}>
+        <a href="/#top" className="flex items-center gap-3" onClick={() => setOpen(false)}>
           <Image
             src="/wei-assets/wei-logo.png"
             alt=""

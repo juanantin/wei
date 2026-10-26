@@ -61,6 +61,20 @@ Optional: add a private Base RPC as the repository secret `RPC_URL`. Otherwise t
 
 `vercel.json` skips Vercel builds for commits that only touch `data/`.
 
+## Mars Booth (`/booth`)
+
+Holders of 10,000+ $WEI put their face on the astronaut next to Wei. The visitor connects a wallet and signs a free message. The server verifies the signature, reads their $WEI balance on Base, then asks Gemini to edit `public/wei-assets/hero.jpg` with their selfie. Photos are processed in memory and never stored.
+
+Vercel environment variables:
+
+| Variable | Needed | What it is |
+|---|---|---|
+| `GEMINI_API_KEY` | yes | Google AI Studio key (aistudio.google.com → Get API key). Billed per image. |
+| `GEMINI_IMAGE_MODEL` | no | Defaults to `gemini-2.5-flash-image`. |
+| `BOOTH_DAILY_LIMIT` | no | Portraits per wallet per UTC day (default 3). |
+| `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` | recommended | Makes the daily limit exact across serverless instances (free Upstash Redis via Vercel Marketplace). Without them the limit is best-effort. |
+| `RPC_URL` | no | Private Base RPC for the balance check; public RPCs are used otherwise. |
+
 ## Deploy on Vercel
 
 1. Import `juanantin/wei` in Vercel (framework preset: Next.js, no root directory needed).

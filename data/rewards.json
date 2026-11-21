@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-11-21T20:19:08.250Z",
+  "updatedAt": "2026-11-21T20:24:43.079Z",
   "synced": true,
-  "cursor": 60509852,
-  "head": 60509852,
+  "cursor": 60511528,
+  "head": 60511528,
   "holders": 321,
   "holdersAboveMin": 135,
   "feesCollected": 0.6076540610913345,
